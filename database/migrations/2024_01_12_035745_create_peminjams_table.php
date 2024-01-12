@@ -11,12 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('ulasanbukus', function (Blueprint $table) {
+        Schema::create('peminjams', function (Blueprint $table) {
             $table->id();
             $table->integer('id_user');
             $table->integer('id_buku');
-            $table->text('ulasan');
-            $table->integer('rating');
+            $table->date('tanggal_peminjaman');
+            $table->date('tanggal_pengembalian');
+            $table->enum('status_peminjam', ['Sudah Di Kembalikan', 'Belum Di Kembalikan', 'Pending'])->default('Pending');
             $table->timestamps();
         });
     }
@@ -26,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('ulasanbukus');
+        Schema::dropIfExists('peminjams');
     }
 };
