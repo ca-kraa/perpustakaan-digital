@@ -15,7 +15,7 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans text-gray-900 antialiased">
-        <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
+        <div   id="backgroundDiv" class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 ">
             <div>
                 <a href="/">
                     <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
@@ -26,5 +26,21 @@
                 {{ $slot }}
             </div>
         </div>
+
+        <script>
+            var backgroundDiv = document.getElementById('backgroundDiv');
+            fetch('api/2e009559a4784b92b41b5f7941166ecb')
+                .then(response => response.json())
+                .then(data => {
+                    var imageUrl = data.urls.regular;
+                    backgroundDiv.style.backgroundImage = "url('" + imageUrl + "')";
+                    backgroundDiv.style.backgroundSize = "cover";
+                    backgroundDiv.style.backgroundPosition = "center";
+                    backgroundDiv.style.backgroundRepeat = "no-repeat";
+                })
+                .catch(error => {
+                    console.error('Error fetching data:', error);
+                });
+        </script>
     </body>
 </html>
