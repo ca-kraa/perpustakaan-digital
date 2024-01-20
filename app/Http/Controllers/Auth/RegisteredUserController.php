@@ -59,7 +59,7 @@ class RegisteredUserController extends Controller
 
             return response()->json([
                 'user' => $user,
-            ], 201);
+            ], 201);    
         } catch (ValidationException $e) {
             return response()->json([
                 'error' => 'Validation Failed',
