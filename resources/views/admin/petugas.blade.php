@@ -138,11 +138,10 @@
                             var phoneNumber = prompt('Masukkan nomor WhatsApp Anda:');
                             if (phoneNumber) {
                                 var whatsappLink = 'https://wa.me/' + phoneNumber + '?text=' +
-                                    encodeURIComponent(
-                                        `=====================%0AUsername%20:%20${formData.username}%0ANama%20Lengkap%20:%20${formData.namaLengkap}%0AAlamat%20:%20${formData.alamat}%0AEmail%20:%20${formData.email}%0A%0ASetelah%20Anda%20menerima%20detail%20ini,%20kami%20sangat%20menyarankan%20Anda%20untuk%20segera%20mengubah%20password%20Anda%20demi%20keamanan%20akun%20Anda.%20Jika%20Anda%20mengalami%20kesulitan%20atau%20membutuhkan%20bantuan%20lebih%20lanjut.%0ATerima%20kasih%0A%0A====================`
-                                    );
 
-                                window.open(whatsappLink, '_blank');
+                                    `*REGISTER AKUN ANDA BERHASIL*%0A=====================%0AUsername%20:%20*${formData.username}*%0ANama%20Lengkap%20:%20*${formData.namaLengkap}*%0AAlamat%20:%20*${formData.alamat}*%0AEmail%20:%20*${formData.email}*%0APassword%20:%20*${formData.password}*%0A%0ASetelah Anda menerima detail ini, kami sangat menyarankan Anda untuk segera mengubah password Anda demi keamanan akun Anda. Jika Anda mengalami kesulitan atau membutuhkan bantuan lebih lanjut.%0ATerima kasih%0A%0A*====================*`
+
+                                window.location.href = whatsappLink;
                             }
                         },
                         error: function(error) {
