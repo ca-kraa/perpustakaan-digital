@@ -34,6 +34,13 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <tr id="emptyRow">
+                                        <td class="text-center" colspan="4">
+                                            Silahkan tambahkan data terlebih dahulu <br>
+                                            Mohon Tunggu Sebentar
+                                            (〃￣︶￣)人(￣︶￣〃)
+                                        </td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -157,25 +164,36 @@
                     url: '/api/data-petugas',
                     method: 'GET',
                     success: function(response) {
-                        $('#tabelPetugas tbody').empty();
-                        $.each(response.data, function(index, petugas) {
-                            var row = '<tr>' +
-                                '<td class="align-middle">' +
-                                '<div class="d-flex px-2 py-1">' +
-                                '<h6 class="mt-2 ml-4 text-sm">' + petugas.namaLengkap +
-                                '</h6>' +
-                                '</div>' +
-                                '</td>' +
-                                '<td>' + petugas.username + '</td>' +
-                                '<td class="text-center">' + petugas.email + '</td>' +
-                                '<td class="align-middle">' +
-                                '<a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">' +
-                                'Edit' +
-                                '</a>' +
-                                '</td>' +
-                                '</tr>';
-                            $('#tabelPetugas tbody').append(row);
-                        });
+                        var tbody = $('#tabelPetugas tbody');
+                        tbody.empty();
+
+                        if (response.data.length === 0) {
+                            // Data kosong, tampilkan pesan
+                            $('#emptyRow').show();
+                        } else {
+                            // Data tidak kosong, sembunyikan pesan
+                            $('#emptyRow').hide();
+
+                            // Tambahkan baris untuk setiap data
+                            $.each(response.data, function(index, petugas) {
+                                var row = '<tr>' +
+                                    '<td class="align-middle">' +
+                                    '<div class="d-flex px-2 py-1">' +
+                                    '<h6 class="mt-2 ml-4 text-sm">' + petugas.namaLengkap +
+                                    '</h6>' +
+                                    '</div>' +
+                                    '</td>' +
+                                    '<td>' + petugas.username + '</td>' +
+                                    '<td class="text-center">' + petugas.email + '</td>' +
+                                    '<td class="align-middle">' +
+                                    '<a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">' +
+                                    'Edit' +
+                                    '</a>' +
+                                    '</td>' +
+                                    '</tr>';
+                                tbody.append(row);
+                            });
+                        }
                     },
                     error: function() {
                         console.log('Gagal mengambil data petugas.');
@@ -185,6 +203,7 @@
             }
 
             loadDataPetugas();
+
         });
     </script>
 @endsection
