@@ -40,14 +40,16 @@ class RegisteredUserController extends Controller
                 'username' => ['required', 'string', 'max:255', Rule::unique('users')],
                 'namaLengkap' => ['required', 'string', 'max:255'],
                 'alamat' => ['required', 'string', 'max:255'],
+                'level' => ['required', 'string', 'max:255'],
                 'email' => ['required', 'string', 'lowercase', 'email', 'max:255', Rule::unique('users')],
-                'password' => ['required', 'confirmed', Rules\Password::defaults()],
+                'password' => ['required', Rules\Password::defaults()],
             ]);
 
             $user = User::create([
-                'username' => $request->username,
+                'username' => strtolower($request->username),
                 'namaLengkap' => $request->namaLengkap,
                 'alamat' => $request->alamat,
+                'level' => $request->level,
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
                 'bearer_token' => Str::random(60),
@@ -59,7 +61,7 @@ class RegisteredUserController extends Controller
 
             return response()->json([
                 'user' => $user,
-            ], 201);    
+            ], 201);
         } catch (ValidationException $e) {
             return response()->json([
                 'error' => 'Validation Failed',

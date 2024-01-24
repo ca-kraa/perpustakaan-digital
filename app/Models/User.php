@@ -24,6 +24,7 @@ class User extends Authenticatable
         'bearer_token',
         'email',
         'password',
+        'level',
     ];
 
     /**

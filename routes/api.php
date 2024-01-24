@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RandomImageController;
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\PerpustakaanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,3 +24,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/register', [RegisteredUserController::class, 'store']);
 
 Route::get('/2e009559a4784b92b41b5f7941166ecb', [RandomImageController::class, 'getSchoolPhotos']);
+Route::get('/show-data-buku', [PerpustakaanController::class, 'bukuIndex']);
+Route::get('/data-petugas', [PerpustakaanController::class, 'Petugasindex']);

@@ -18,6 +18,18 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/badag', function () {
+    return view('badag');
+});
+
+Route::get('/main', function () {
+    return view('template.main');
+});
+
+Route::get('/tes', function () {
+    return view('tes');
+});
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -28,4 +40,13 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+// Admin
+Route::get('/admin/dashboard', function () {
+    return view('admin.dashboard');
+});
+
+Route::get('/admin/petugas', function () {
+    return view('admin.petugas');
+});
+
+require __DIR__ . '/auth.php';
