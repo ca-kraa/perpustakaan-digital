@@ -26,3 +26,4 @@ Route::post('/register', [RegisteredUserController::class, 'store']);
 Route::get('/2e009559a4784b92b41b5f7941166ecb', [RandomImageController::class, 'getSchoolPhotos']);
 Route::get('/show-data-buku', [PerpustakaanController::class, 'bukuIndex']);
 Route::get('/data-petugas', [PerpustakaanController::class, 'Petugasindex']);
+Route::get('/jumlah-user', [PerpustakaanController::class, 'jumlahUser']);

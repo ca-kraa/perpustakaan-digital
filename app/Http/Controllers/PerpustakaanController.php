@@ -26,7 +26,7 @@ class PerpustakaanController extends Controller
         $petugas = User::where('level', 'petugas')->get();
 
         if ($petugas->count() > 0) {
-                $petugas->makeHidden(['bearer_token', 'level', 'id', 'created_at', 'updated_at' ,'email_verified_at']);
+            $petugas->makeHidden(['bearer_token', 'level', 'id', 'created_at', 'updated_at', 'email_verified_at']);
 
             return response()->json([
                 'data' => $petugas,
@@ -37,5 +37,11 @@ class PerpustakaanController extends Controller
                 'message' => 'Data petugas tidak ditemukan.'
             ], 404);
         }
+    }
+
+    public function jumlahUser()
+    {
+        $jumlahuser = User::count();
+        return response()->json($jumlahuser);
     }
 }
