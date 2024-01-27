@@ -16,9 +16,9 @@
                 <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
                 <x-input-error :messages="$errors->get('email')" class="mt-2" />
 
-                <x-input-label for="address" :value="__('Address')" />
-                <x-text-input id="address" class="block mt-1 w-full" type="text" name="address" :value="old('address')" required autofocus autocomplete="address" />
-                <x-input-error :messages="$errors->get('address')" class="mt-2" />
+                <x-input-label for="alamat" :value="__('alamat')" />
+                <x-text-input id="alamat" class="block mt-1 w-full" type="text" name="alamat" :value="old('alamat')" required autofocus autocomplete="alamat" />
+                <x-input-error :messages="$errors->get('alamat')" class="mt-2" />
             </div>
         </div>
         <div>
@@ -40,5 +40,6 @@
                 </a>
             </div>
         </div>
+        <input type="hidden" name="level" value="peminjam">
     </form>
 </x-guest-layout>

@@ -37,7 +37,6 @@
                                     <tr id="emptyRow">
                                         <td class="text-center" colspan="4">
                                             Silahkan tambahkan data terlebih dahulu <br>
-                                            Mohon Tunggu Sebentar
                                             (〃￣︶￣)人(￣︶￣〃)
                                         </td>
                                     </tr>
@@ -110,6 +109,7 @@
 
     <script>
         $(document).ready(function() {
+
             function validateForm() {
                 var username = $('#username').val();
                 var namaLengkap = $('#namaLengkap').val();
@@ -145,15 +145,12 @@
                             var phoneNumber = prompt('Masukkan nomor WhatsApp Anda:');
                             if (phoneNumber) {
                                 var whatsappLink = 'https://wa.me/' + phoneNumber + '?text=' +
-
                                     `*REGISTER AKUN ANDA BERHASIL*%0A=====================%0AUsername%20:%20*${formData.username}*%0ANama%20Lengkap%20:%20*${formData.namaLengkap}*%0AAlamat%20:%20*${formData.alamat}*%0AEmail%20:%20*${formData.email}*%0APassword%20:%20*${formData.password}*%0A%0ASetelah Anda menerima detail ini, kami sangat menyarankan Anda untuk segera mengubah password Anda demi keamanan akun Anda. Jika Anda mengalami kesulitan atau membutuhkan bantuan lebih lanjut.%0ATerima kasih%0A%0A*====================*`
-
                                 window.location.href = whatsappLink;
                             }
                         },
                         error: function(error) {
-                            alert('Gagal mendaftar. Silakan coba lagi.');
-                            console.error(error);
+                            console.error('Gagal mendaftar.', error);
                         }
                     });
                 }
@@ -168,42 +165,64 @@
                         tbody.empty();
 
                         if (response.data.length === 0) {
-                            // Data kosong, tampilkan pesan
                             $('#emptyRow').show();
                         } else {
-                            // Data tidak kosong, sembunyikan pesan
                             $('#emptyRow').hide();
-
-                            // Tambahkan baris untuk setiap data
                             $.each(response.data, function(index, petugas) {
-                                var row = '<tr>' +
-                                    '<td class="align-middle">' +
-                                    '<div class="d-flex px-2 py-1">' +
-                                    '<h6 class="mt-2 ml-4 text-sm">' + petugas.namaLengkap +
-                                    '</h6>' +
-                                    '</div>' +
-                                    '</td>' +
-                                    '<td>' + petugas.username + '</td>' +
-                                    '<td class="text-center">' + petugas.email + '</td>' +
-                                    '<td class="align-middle">' +
-                                    '<a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">' +
-                                    'Edit' +
-                                    '</a>' +
-                                    '</td>' +
-                                    '</tr>';
+                                var row = `<tr>
+                                    <td class="align-middle">
+                                        <div class="d-flex px-2 py-1">
+                                            <h6 class="mt-2 ml-4 text-sm">${petugas.namaLengkap}</h6>
+                                        </div>
+                                    </td>
+                                    <td>${petugas.username}</td>
+                                    <td class="text-center">${petugas.email}</td>
+                                    <td class="align-middle">
+                                        <a href="javascript:;" class="text-danger font-weight-bold text-xs btn-delete" data-toggle="tooltip" data-original-title="Hapus user" data-id="${petugas.id}" data-nama="${petugas.namaLengkap}" data-email="${petugas.email}">
+                                            Hapus
+                                        </a>
+                                    </td>
+                                </tr>`;
                                 tbody.append(row);
                             });
+                            console.log(response);
+                            console.log('ID Petugas:', response.data.map(petugas => petugas.id));
                         }
                     },
+                });
+            }
+
+            $(document).on('click', '.btn-delete', function() {
+                var userId = $(this).data('id');
+                var userName = $(this).data('nama');
+                var userEmail = $(this).data('email');
+
+                var confirmDelete = confirm('Apakah Anda yakin ingin menghapus ' + userName + ' (' +
+                    userEmail + ')?');
+
+                if (confirmDelete) {
+                    deleteUserData(userId);
+                }
+            });
+
+            function deleteUserData(userId) {
+                console.log('UserID:', userId);
+
+                $.ajax({
+                    url: '/api/hapus-data-user/' + userId,
+                    method: 'DELETE',
+                    success: function(response) {
+                        console.log('User berhasil dihapus.', response);
+                        loadDataPetugas();
+                    },
                     error: function() {
-                        console.log('Gagal mengambil data petugas.');
-                        alert('Gagal mengambil data petugas.');
+                        console.error('Gagal menghapus data user.');
                     }
                 });
             }
 
             loadDataPetugas();
-
         });
     </script>
+
 @endsection
