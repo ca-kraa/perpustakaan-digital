@@ -59,7 +59,6 @@
                 dataType: 'json',
                 success: function(data) {
                     if (data.length > 0) {
-                        // Iterasi melalui setiap buku dalam array
                         data.forEach(function(buku) {
                             var row = '<tr>' +
                                 '<td>' + buku.judul + '</td>' +
