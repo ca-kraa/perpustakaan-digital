@@ -7,7 +7,7 @@
     <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('assets/dashboard-admin') }}/assets/img/apple-icon.png">
     <link rel="shortcut icon" href="{{ asset('favicon.ico') }}">
     <title>
-        Dashboard Admin | @yield('title')
+        Dashboard @yield('title')
     </title>
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <link rel="stylesheet" type="text/css"
