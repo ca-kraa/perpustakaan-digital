@@ -27,9 +27,6 @@
                                         <th
                                             class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                                             Username</th>
-                                        <th
-                                            class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                            Email</th>
                                         <th class="text-secondary opacity-7"></th>
                                     </tr>
                                 </thead>
@@ -176,7 +173,6 @@
                                         </div>
                                     </td>
                                     <td>${petugas.username}</td>
-                                    <td class="text-center">${petugas.email}</td>
                                     <td class="align-middle">
                                         <a href="javascript:;" class="text-danger font-weight-bold text-xs btn-delete" data-toggle="tooltip" data-original-title="Hapus user" data-id="${petugas.id}" data-nama="${petugas.namaLengkap}" data-email="${petugas.email}">
                                             Hapus
