@@ -13,9 +13,9 @@
                             class="icon icon-lg icon-shape bg-gradient-dark shadow-dark text-center border-radius-xl mt-n4 position-absolute">
                             <i class="material-icons opacity-10">book</i>
                         </div>
-                        <div class="text-end pt-1">
+                        <div class="text-end pt-1" id="buku-info">
                             <p class="text-sm mb-0 text-capitalize">Buku</p>
-                            <h4 class="mb-0">$53k</h4>
+                            <h4 class="mb-0">Loading...</h4>
                         </div>
                     </div>
                     <hr class="dark horizontal my-0">
@@ -47,9 +47,9 @@
                             class="icon icon-lg icon-shape bg-gradient-success shadow-success text-center border-radius-xl mt-n4 position-absolute">
                             <i class="material-icons opacity-10">reviews</i>
                         </div>
-                        <div class="text-end pt-1">
-                            <p class="text-sm mb-0 text-capitalize">Review</p>
-                            <h4 class="mb-0">3,462</h4>
+                        <div class="text-end pt-1" id="ulasan-info">
+                            <p class="text-sm mb-0 text-capitalize">Ulasan</p>
+                            <h4 class="mb-0">Loading...</h4>
                         </div>
                     </div>
                     <hr class="dark horizontal my-0">
@@ -64,9 +64,9 @@
                             class="icon icon-lg icon-shape bg-gradient-info shadow-info text-center border-radius-xl mt-n4 position-absolute">
                             <i class="material-icons opacity-10">category</i>
                         </div>
-                        <div class="text-end pt-1">
+                        <div class="text-end pt-1" id="kategori-info">
                             <p class="text-sm mb-0 text-capitalize">Kategori</p>
-                            <h4 class="mb-0">$103,430</h4>
+                            <h4 class="mb-0">Loading...</h4>
                         </div>
                     </div>
                     <hr class="dark horizontal my-0">
@@ -387,6 +387,21 @@
                 },
             },
         });
+
+        $(document).ready(function() {
+            $.ajax({
+                url: '/api/jumlah-buku',
+                type: 'GET',
+                success: function(response) {
+                    $('#buku-info h4').text(response);
+                },
+                error: function(error) {
+                    console.log('Gagal memuat jumlah Buku:', error);
+                }
+            });
+        });
+
+
         $(document).ready(function() {
             $.ajax({
                 url: '/api/jumlah-user',
@@ -395,7 +410,33 @@
                     $('#user-info h4').text(response);
                 },
                 error: function(error) {
-                    console.log('Gagal memuat jumlah pengguna:', error);
+                    console.log('Gagal memuat jumlah Pengguna:', error);
+                }
+            });
+        });
+
+        $(document).ready(function() {
+            $.ajax({
+                url: '/api/jumlah-ulasan',
+                type: 'GET',
+                success: function(response) {
+                    $('#ulasan-info h4').text(response);
+                },
+                error: function(error) {
+                    console.log('Gagal memuat jumlah Ulasan:', error);
+                }
+            });
+        });
+
+        $(document).ready(function() {
+            $.ajax({
+                url: '/api/jumlah-kategori',
+                type: 'GET',
+                success: function(response) {
+                    $('#kategori-info h4').text(response);
+                },
+                error: function(error) {
+                    console.log('Gagal memuat jumlah Kategori:', error);
                 }
             });
         });
