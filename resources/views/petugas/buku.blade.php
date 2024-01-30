@@ -51,6 +51,7 @@
 
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
     <script>
         $(document).ready(function() {
             $.ajax({
@@ -61,13 +62,34 @@
                     if (data.length > 0) {
                         data.forEach(function(buku) {
                             var row = '<tr>' +
-                                '<td>' + buku.judul + '</td>' +
-                                '<td>' + buku.penulis + '</td>' +
-                                '<td>' + buku.penerbit + '</td>' +
-                                '<td>' + buku.tahun_terbit + '</td>' +
-                                '<td>' +
-                                '<button class="btn btn-danger btn-sm" onclick="deleteBuku(' +
-                                buku.id + ')">Delete</button>' +
+                                '<td class="align-middle">' +
+                                '<div class="d-flex px-2 py-1">' +
+                                '<h6 class="mt-2 ml-4 text-sm">' + buku.judul + '</h6>' +
+                                '</div>' +
+                                '</td>' +
+                                '<td class="align-middle">' +
+                                '<div class="d-flex px-2 py-1">' +
+                                '<h6 class="mt-2 ml-4 text-sm">' + buku.penulis + '</h6>' +
+                                '</div>' +
+                                '</td>' +
+                                '<td class="align-middle">' +
+                                '<div class="d-flex px-2 py-1">' +
+                                '<h6 class="mt-2 ml-4 text-sm">' + buku.penerbit + '</h6>' +
+                                '</div>' +
+                                '</td>' +
+                                '<td class="align-middle">' +
+                                '<div class="d-flex px-2 py-1">' +
+                                '<h6 class="mt-2 ml-4 text-sm">' + buku.tahun_terbit + '</h6>' +
+                                '</div>' +
+                                '</td>' +
+                                '<td class="align-middle">' +
+                                '<div class="d-flex px-2 py-1">' +
+                                '<a href="javascript:;" class="text-danger font-weight-bold text-xs btn-delete" ' +
+                                'data-toggle="tooltip" data-original-title="Hapus buku" ' +
+                                'data-id="' + buku.id + '" data-judul="' + buku.judul + '">' +
+                                'Hapus' +
+                                '</a>' +
+                                '</div>' +
                                 '</td>' +
                                 '</tr>';
                             $('#bukuTableBody').append(row);
@@ -84,6 +106,17 @@
                 },
                 error: function(error) {
                     console.log('Error fetching data:', error);
+                }
+            });
+
+            $(document).on('click', '.btn-delete', function() {
+                var id = $(this).data('id');
+                var judul = $(this).data('judul');
+
+                var isConfirmed = confirm('Apakah Anda yakin ingin menghapus buku "' + judul + '"?');
+
+                if (isConfirmed) {
+                    deleteBuku(id);
                 }
             });
         });
@@ -108,4 +141,5 @@
             });
         }
     </script>
+
 @endsection
