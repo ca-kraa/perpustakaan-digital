@@ -13,30 +13,28 @@
                             <h6 class="text-white text-capitalize ps-3 mb-0">Data Buku</h6>
                         </div>
                         <button class="btn btn-icon btn-3 btn-primary mt-2" type="button" id="btnTambahPetugas1"
-                        data-bs-toggle="modal" data-bs-target="#registrationModal" style="margin-right: 10px;">
-                    <span class="btn-inner--icon"><i class="material-icons">book</i></span>
-                    <span class="btn-inner--text">Tambahkan Buku</span>
-                </button>
+                            data-bs-toggle="modal" data-bs-target="#registrationModal" style="margin-right: 10px;">
+                            <span class="btn-inner--icon"><i class="material-icons">book</i></span>
+                            <span class="btn-inner--text">Tambahkan Buku</span>
+                        </button>
 
-                <button class="btn btn-icon btn-3 btn-primary mt-2" type="button" id="btnTambahPetugas2"
-                        data-bs-toggle="modal" data-bs-target="#registrationModal" style="margin-right: 10px;">
-                    <span class="btn-inner--icon"><i class="material-icons">book</i></span>
-                    <span class="btn-inner--text">Tambahkan Buku</span>
-                </button>
+                        <button class="btn btn-icon btn-3 btn-primary mt-2" type="button" id="btnTambahPetugas2"
+                            data-bs-toggle="modal" data-bs-target="#registrationModal" style="margin-right: 10px;">
+                            <span class="btn-inner--icon"><i class="material-icons">book</i></span>
+                            <span class="btn-inner--text">Tambahkan Buku</span>
+                        </button>
 
-                <button class="btn btn-icon btn-3 btn-primary mt-2" type="button" id="btnTambahPetugas3"
-                        data-bs-toggle="modal" data-bs-target="#registrationModal" style="margin-right: 10px;">
-                    <span class="btn-inner--icon"><i class="material-icons">book</i></span>
-                    <span class="btn-inner--text">Tambahkan Buku</span>
-                </button>
+                        <button class="btn btn-icon btn-3 btn-primary mt-2" type="button" id="btnTambahPetugas3"
+                            data-bs-toggle="modal" data-bs-target="#registrationModal" style="margin-right: 10px;">
+                            <span class="btn-inner--icon"><i class="material-icons">book</i></span>
+                            <span class="btn-inner--text">Tambahkan Buku</span>
+                        </button>
 
-                <button class="btn btn-icon btn-3 btn-primary mt-2" type="button" id="btnTambahPetugas4"
-                        data-bs-toggle="modal" data-bs-target="#registrationModal">
-                    <span class="btn-inner--icon"><i class="material-icons">book</i></span>
-                    <span class="btn-inner--text">Tambahkan Buku</span>
-                </button>
-
-
+                        <button class="btn btn-icon btn-3 btn-primary mt-2" type="button" id="btnTambahPetugas4"
+                            data-bs-toggle="modal" data-bs-target="#registrationModal">
+                            <span class="btn-inner--icon"><i class="material-icons">book</i></span>
+                            <span class="btn-inner--text">Tambahkan Buku</span>
+                        </button>
                     </div>
                     <div class="card-body px-0 pb-2">
                         <div class="table-responsive p-0">
