@@ -35,6 +35,28 @@
                 </a>
             </li>
             <li class="nav-item">
+                <a class="nav-link text-white @if (request()->is('petugas/peminjam')) active bg-gradient-primary @endif"
+                    href="/petugas/peminjam">
+                    <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="material-icons opacity-10">local_library</i>
+                    </div>
+                    <span class="nav-link-text ms-1">
+                        Peminjam
+                    </span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white @if (request()->is('petugas/reviews')) active bg-gradient-primary @endif"
+                    href="/petugas/reviews">
+                    <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="material-icons opacity-10">reviews</i>
+                    </div>
+                    <span class="nav-link-text ms-1">
+                        Ulasan
+                    </span>
+                </a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link text-white" href="{{ route('logout') }}"
                     onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
