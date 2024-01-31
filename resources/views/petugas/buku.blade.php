@@ -18,22 +18,22 @@
                             <span class="btn-inner--text">Tambahkan Buku</span>
                         </button>
 
-                        <button class="btn btn-icon btn-3 btn-primary mt-2" type="button" id="btnTambahPetugas2"
+                        <button class="btn btn-icon btn-3 btn-success mt-2" type="button" id="btnTambahPetugas2"
                             data-bs-toggle="modal" data-bs-target="#registrationModal" style="margin-right: 10px;">
-                            <span class="btn-inner--icon"><i class="material-icons">book</i></span>
-                            <span class="btn-inner--text">Tambahkan Buku</span>
+                            <span class="btn-inner--icon"><i class="material-icons">table_view</i></span>
+                            <span class="btn-inner--text">Simpan CSV</span>
                         </button>
 
-                        <button class="btn btn-icon btn-3 btn-primary mt-2" type="button" id="btnTambahPetugas3"
+                        <button class="btn btn-icon btn-3 btn-info mt-2" type="button" id="btnTambahPetugas3"
                             data-bs-toggle="modal" data-bs-target="#registrationModal" style="margin-right: 10px;">
-                            <span class="btn-inner--icon"><i class="material-icons">book</i></span>
-                            <span class="btn-inner--text">Tambahkan Buku</span>
+                            <span class="btn-inner--icon"><i class="material-icons">picture_as_pdf</i></span>
+                            <span class="btn-inner--text">Simpan PDF</span>
                         </button>
 
-                        <button class="btn btn-icon btn-3 btn-primary mt-2" type="button" id="btnTambahPetugas4"
+                        <button class="btn btn-icon btn-3 btn-warning mt-2" type="button" id="btnTambahPetugas4"
                             data-bs-toggle="modal" data-bs-target="#registrationModal">
-                            <span class="btn-inner--icon"><i class="material-icons">book</i></span>
-                            <span class="btn-inner--text">Tambahkan Buku</span>
+                            <span class="btn-inner--icon"><i class="material-icons">print</i></span>
+                            <span class="btn-inner--text">Cetak</span>
                         </button>
                     </div>
                     <div class="card-body px-0 pb-2">
