@@ -143,8 +143,8 @@
                 var editedTahunTerbit = $('#editTahunTerbit').val();
 
                 $.ajax({
-                    url: '/edit-buku/' + id,
-                    type: 'PUT',
+                    url: '/api/edit-buku/' + id,
+                    type: 'put',
                     data: {
                         judul: editedJudul,
                         penulis: editedPenulis,
@@ -165,7 +165,7 @@
             function loadDataBuku() {
                 $.ajax({
                     url: '/api/show-data-buku',
-                    type: 'GET',
+                    type: 'get',
                     dataType: 'json',
                     success: function(data) {
                         $('#bukuTableBody').empty();
@@ -236,7 +236,7 @@
             function deleteBuku(id) {
                 $.ajax({
                     url: '/api/delete-buku/' + id,
-                    type: 'DELETE',
+                    type: 'delete',
                     success: function() {
                         loadDataBuku();
                     },
