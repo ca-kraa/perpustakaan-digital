@@ -35,6 +35,17 @@
                 </a>
             </li>
             <li class="nav-item">
+                <a class="nav-link text-white @if (request()->is('petugas/kategori')) active bg-gradient-primary @endif"
+                    href="/petugas/peminjam">
+                    <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="material-icons opacity-10">sort</i>
+                    </div>
+                    <span class="nav-link-text ms-1">
+                        Kategori
+                    </span>
+                </a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link text-white @if (request()->is('petugas/peminjam')) active bg-gradient-primary @endif"
                     href="/petugas/peminjam">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
