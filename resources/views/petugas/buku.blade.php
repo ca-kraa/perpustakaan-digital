@@ -23,12 +23,15 @@
                             <span class="btn-inner--text">Simpan CSV</span>
                         </button>
 
-                        <button class="btn btn-icon btn-3 btn-info mt-2" type="button" style="margin-right: 10px;">
+                        <button class="btn btn-icon btn-3 btn-info mt-2" type="button" id="savePdfButton" style="margin-right: 10px;">
                             <span class="btn-inner--icon"><i class="material-icons">picture_as_pdf</i></span>
                             <span class="btn-inner--text">Simpan PDF</span>
                         </button>
 
-                        <a href="print-buku" target="_blank" class="btn btn-icon btn-3 btn-warning mt-2" style="margin-right: 10px;">
+
+
+                        <a href="print-buku" target="_blank" class="btn btn-icon btn-3 btn-warning mt-2"
+                            style="margin-right: 10px;">
                             <span class="btn-inner--icon"><i class="material-icons">print</i></span>
                             <span class="btn-inner--text">Cetak</span>
                         </a>
@@ -141,13 +144,15 @@
         </div>
     </div>
 
-
-
-
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
+        $(document).ready(function() {
+            $('#savePdfButton').on('click', function() {
+                window.location.href = '/petugas/pdf-buku';
+            });
+        });
         $(document).ready(function() {
 
             loadDataBuku();
