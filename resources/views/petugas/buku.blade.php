@@ -62,6 +62,7 @@
             </div>
         </div>
     </div>
+
     <div class="modal fade" id="editDataBuku" tabindex="-1" role="dialog" aria-labelledby="modal-title-default"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-" role="document">
@@ -99,6 +100,7 @@
             </div>
         </div>
     </div>
+
 
 
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
