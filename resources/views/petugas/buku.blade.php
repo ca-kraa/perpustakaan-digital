@@ -18,18 +18,16 @@
                             <span class="btn-inner--text">Tambahkan Buku</span>
                         </button>
 
-                        <button class="btn btn-icon btn-3 btn-success mt-2" type="button" style="margin-right: 10px;">
+                        <button class="btn btn-icon btn-3 btn-success mt-2" id="saveExcelButton" type="button" style="margin-right: 10px;">
                             <span class="btn-inner--icon"><i class="material-icons">table_view</i></span>
                             <span class="btn-inner--text">Simpan CSV</span>
                         </button>
 
-                        <button class="btn btn-icon btn-3 btn-info mt-2" type="button" id="savePdfButton" style="margin-right: 10px;">
+                        <button class="btn btn-icon btn-3 btn-info mt-2" type="button" id="savePdfButton"
+                            style="margin-right: 10px;">
                             <span class="btn-inner--icon"><i class="material-icons">picture_as_pdf</i></span>
                             <span class="btn-inner--text">Simpan PDF</span>
                         </button>
-
-
-
                         <a href="print-buku" target="_blank" class="btn btn-icon btn-3 btn-warning mt-2"
                             style="margin-right: 10px;">
                             <span class="btn-inner--icon"><i class="material-icons">print</i></span>
@@ -105,8 +103,8 @@
         </div>
     </div>
 
-    <div class="modal fade" id="tambahDataBukuModal" tabindex="-1" role="dialog" aria-labelledby="modal-title-default"
-        aria-hidden="true">
+    <div class="modal fade" id="tambahDataBukuModal" tabindex="-1" role="dialog"
+        aria-labelledby="modal-title-default" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -153,6 +151,13 @@
                 window.location.href = '/petugas/pdf-buku';
             });
         });
+
+        $(document).ready(function() {
+            $('#saveExcelButton').on('click', function() {
+                window.location.href = '/petugas/excel-buku';
+            });
+        });
+
         $(document).ready(function() {
 
             loadDataBuku();
