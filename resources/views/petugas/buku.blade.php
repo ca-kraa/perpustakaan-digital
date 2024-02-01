@@ -62,7 +62,6 @@
             </div>
         </div>
     </div>
-
     <div class="modal fade" id="editDataBuku" tabindex="-1" role="dialog" aria-labelledby="modal-title-default"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-" role="document">
@@ -101,11 +100,13 @@
         </div>
     </div>
 
+
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
         $(document).ready(function() {
+
             loadDataBuku();
 
             $(document).on('click', '.btn-delete', function() {
@@ -119,23 +120,22 @@
                 }
             });
 
-            $(document).ready(function() {
-                $('.btn-edit').click(function() {
-                    var id = $(this).data('id');
-                    var judul = $(this).data('judul');
-                    var penulis = $(this).data('penulis');
-                    var penerbit = $(this).data('penerbit');
-                    var tahun_terbit = $(this).data('tahun_terbit');
+            $(document).on('click', '.btn-edit', function() {
+                var id = $(this).data('id');
+                var judul = $(this).data('judul');
+                var penulis = $(this).data('penulis');
+                var penerbit = $(this).data('penerbit');
+                var tahun_terbit = $(this).data('tahun_terbit');
 
-                    $('#editBukuForm #editJudul').val(judul);
-                    $('#editBukuForm #editPenulis').val(penulis);
-                    $('#editBukuForm #editPenerbit').val(penerbit);
-                    $('#editBukuForm #editTahunTerbit').val(tahun_terbit);
-                });
+                $('#editBukuForm #editJudul').val(judul);
+                $('#editBukuForm #editPenulis').val(penulis);
+                $('#editBukuForm #editPenerbit').val(penerbit);
+                $('#editBukuForm #editTahunTerbit').val(tahun_terbit);
+
+                $('#btnSaveChanges').data('id', id);
             });
 
-
-            $('#btnSaveChanges').on('click', function() {
+            $(document).on('click', '#btnSaveChanges', function() {
                 var id = $(this).data('id');
                 var editedJudul = $('#editJudul').val();
                 var editedPenulis = $('#editPenulis').val();
@@ -154,7 +154,7 @@
                     success: function(response) {
                         console.log('Data berhasil diperbarui:', response);
                         $('#editDataBuku').modal('hide');
-                        loadDataBuku();
+                        location.reload();
                     },
                     error: function(error) {
                         console.error('Gagal memperbarui data:', error);
@@ -196,14 +196,14 @@
                                     '</td>' +
                                     '<td class="align-middle">' +
                                     '<div class="d-flex px-2 py-1">' +
-                                    '<button class="text-success font-weight-bold text-xs btn-edit" ' +
+                                    '<a class="text-success font-weight-bold text-xs btn-edit" ' +
                                     'data-bs-toggle="modal" data-bs-target="#editDataBuku" ' +
                                     'data-id="' + buku.id + '" data-judul="' + buku.judul +
                                     '" data-penulis="' + buku.penulis + '" data-penerbit="' +
                                     buku.penerbit +
                                     '" data-tahun_terbit="' + buku.tahun_terbit + '">' +
                                     'Edit' +
-                                    '</button>' +
+                                    '</a>' +
                                     '<span class="mx-2"></span>' +
                                     '<a href="javascript:;" class="text-danger font-weight-bold text-xs btn-delete" ' +
                                     'data-toggle="tooltip" data-original-title="Hapus buku" ' +
@@ -216,7 +216,6 @@
                                     '</tr>';
                                 $('#bukuTableBody').append(row);
                             });
-
                         } else {
                             var emptyRow = '<tr id="emptyRow">' +
                                 '<td class="text-center" colspan="5">' +
