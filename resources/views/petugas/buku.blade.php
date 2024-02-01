@@ -53,7 +53,7 @@
                                         </th>
                                     </tr>
                                 </thead>
-                                <tbody id="bukuTableBody">
+                                <tbody id="bukuTableBody" class="display">
                                 </tbody>
                             </table>
                         </div>

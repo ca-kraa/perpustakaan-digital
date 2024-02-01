@@ -23,7 +23,6 @@
         rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link href="{{ asset('assets/DataTables') }}/datatables.min.css" rel="stylesheet">
 </head>
 
 <body class="g-sidenav-show  bg-gray-200">
@@ -31,7 +30,6 @@
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
         @include('template.navbar')
         @yield('konten')
-        <script src="{{ asset('assets/DataTables') }}/datatables.min.js"></script>
         @include('template.script')
 </body>
 
