@@ -12,7 +12,8 @@
                         <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
                             <h6 class="text-white text-capitalize ps-3 mb-0 animate__bounce">Data Buku</h6>
                         </div>
-                        <button class="btn btn-icon btn-3 btn-primary mt-2" type="button" style="margin-right: 10px;">
+                        <button class="btn btn-icon btn-3 btn-primary mt-2" type="button" style="margin-right: 10px;"
+                            data-bs-toggle="modal" data-bs-target="#tambahDataBukuModal">
                             <span class="btn-inner--icon"><i class="material-icons">book</i></span>
                             <span class="btn-inner--text">Tambahkan Buku</span>
                         </button>
@@ -27,7 +28,7 @@
                             <span class="btn-inner--text">Simpan PDF</span>
                         </button>
 
-                        <button class="btn btn-icon btn-3 btn-warning mt-2" type="button">
+                        <button class="btn btn-icon btn-3 btn-warning mt-2" type="button" style="margin-right: 10px;">
                             <span class="btn-inner--icon"><i class="material-icons">print</i></span>
                             <span class="btn-inner--text">Cetak</span>
                         </button>
@@ -100,6 +101,46 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="tambahDataBukuModal" tabindex="-1" role="dialog" aria-labelledby="modal-title-default"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6 class="modal-title font-weight-normal" id="modal-title-default">Tambah Buku</h6>
+                    <button type="button" class="btn-close text-dark" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="tambahBukuForm">
+                        <div class="input-group input-group-outline mb-4">
+                            <label class="form-label" for="tambahJudul">Judul</label>
+                            <input type="text" class="form-control" id="tambahJudul" name="judul" required>
+                        </div>
+                        <div class="input-group input-group-outline mb-4">
+                            <label class="form-label" for="tambahPenulis">Penulis</label>
+                            <input type="text" class="form-control" id="tambahPenulis" name="penulis" required>
+                        </div>
+                        <div class="input-group input-group-outline mb-4">
+                            <label class="form-label" for="tambahPenerbit">Penerbit</label>
+                            <input type="text" class="form-control" id="tambahPenerbit" name="penerbit" required>
+                        </div>
+                        <div class="input-group input-group-outline mb-4">
+                            <label class="form-label" for="tambahTahunTerbit">Tahun Terbit</label>
+                            <input type="number" class="form-control" id="tambahTahunTerbit" name="tahun_terbit"
+                                required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn bg-gradient-primary" id="btnTambahBuku">Tambah Buku</button>
+                    <button type="button" class="btn btn-link ml-auto" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 
 
@@ -246,6 +287,33 @@
                     }
                 });
             }
+        });
+
+        $(document).ready(function() {
+            $(document).on('click', '#btnTambahBuku', function() {
+                var tambahJudul = $('#tambahJudul').val();
+                var tambahPenulis = $('#tambahPenulis').val();
+                var tambahPenerbit = $('#tambahPenerbit').val();
+                var tambahTahunTerbit = $('#tambahTahunTerbit').val();
+
+                $.ajax({
+                    url: '/api/create-buku',
+                    type: 'post',
+                    data: {
+                        judul: tambahJudul,
+                        penulis: tambahPenulis,
+                        penerbit: tambahPenerbit,
+                        tahun_terbit: tambahTahunTerbit
+                    },
+                    success: function(response) {
+                        console.log('Data berhasil ditambahkan:', response);
+                        location.reload();
+                    },
+                    error: function(error) {
+                        console.error('Gagal menambahkan data:', error);
+                    }
+                });
+            });
         });
     </script>
 
