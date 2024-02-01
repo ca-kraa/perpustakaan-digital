@@ -28,10 +28,10 @@
                             <span class="btn-inner--text">Simpan PDF</span>
                         </button>
 
-                        <button class="btn btn-icon btn-3 btn-warning mt-2" type="button" style="margin-right: 10px;">
+                        <a href="print-buku" target="_blank" class="btn btn-icon btn-3 btn-warning mt-2" style="margin-right: 10px;">
                             <span class="btn-inner--icon"><i class="material-icons">print</i></span>
                             <span class="btn-inner--text">Cetak</span>
-                        </button>
+                        </a>
                     </div>
                     <div class="card-body px-0 pb-2">
                         <div class="table-responsive p-0">
