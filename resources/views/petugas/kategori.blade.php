@@ -66,6 +66,32 @@
         </div>
     </div>
 
+    <div class="modal fade" id="editDataKategori" tabindex="-1" role="dialog" aria-labelledby="modal-title-default"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6 class="modal-title font-weight-normal" id="modal-title-default">Edit Kategori</h6>
+                    <button type="button" class="btn-close text-dark" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="editCategoryForm">
+                        <input type="hidden" id="editCategoryId" name="id">
+                        <div class="my-3">
+                            <label for="editCategory" class="form-label">Nama Kategori</label>
+                            <input type="text" class="form-control" id="editCategory" name="nama_kategori">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn bg-gradient-primary" id="btnSaveChanges">Simpan Perubahan</button>
+                    <button type="button" class="btn btn-link ml-auto" data-bs-dismiss="modal">Tutup</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -94,7 +120,6 @@
                 });
             });
 
-            // Function to load category data
             function loadDataKategori() {
                 $.ajax({
                     url: "/api/show-data-kategori",
@@ -157,6 +182,37 @@
                     }
                 });
             }
+            $('#katgoriTableBody').on('click', '.btn-edit', function() {
+                var categoryId = $(this).data('id');
+                var categoryNama = $(this).data('nama_kategori');
+
+                $('#editCategoryId').val(categoryId);
+                $('#editCategory').val(categoryNama);
+
+                $('#editDataKategori').modal('show');
+            });
+
+            $('#btnSaveChanges').on('click', function() {
+                var categoryId = $('#editCategoryId').val();
+                var editedCategoryNama = $('#editCategory').val();
+
+                $.ajax({
+                    url: '/api/edit-kategori/' + categoryId,
+                    type: 'put',
+                    dataType: 'json',
+                    data: {
+                        nama_kategori: editedCategoryNama
+                    },
+                    success: function(response) {
+                        location.reload();
+
+                        $('#editDataKategori').modal('hide');
+                    },
+                    error: function(error) {
+                        console.log('Error updating category:', error);
+                    }
+                });
+            });
         });
     </script>
 
