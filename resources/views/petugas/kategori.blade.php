@@ -2,7 +2,6 @@
 @section('title', 'Petugas | Kategori')
 @section('Dashboard Untuk', 'Petugas')
 
-
 @section('konten')
     <div class="container-fluid py-4">
         <div class="row">
