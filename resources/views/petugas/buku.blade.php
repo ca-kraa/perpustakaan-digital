@@ -18,9 +18,10 @@
                             <span class="btn-inner--text">Tambahkan Buku</span>
                         </button>
 
-                        <button class="btn btn-icon btn-3 btn-success mt-2" id="saveExcelButton" type="button" style="margin-right: 10px;">
+                        <button class="btn btn-icon btn-3 btn-success mt-2" id="saveExcelButton" type="button"
+                            style="margin-right: 10px;">
                             <span class="btn-inner--icon"><i class="material-icons">table_view</i></span>
-                            <span class="btn-inner--text">Simpan CSV</span>
+                            <span class="btn-inner--text">Simpan Excel</span>
                         </button>
 
                         <button class="btn btn-icon btn-3 btn-info mt-2" type="button" id="savePdfButton"
