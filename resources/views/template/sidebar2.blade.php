@@ -12,7 +12,7 @@
     <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link text-white @if (request()->is('petugas/dashboard')) active bg-gradient-primary @endif"
+                <a class="nav-link text-white @if (request()->is('petugas/dashboard')) active bg-gradient-secondary @endif"
                     href="{{ url('petugas/dashboard') }}">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="material-icons opacity-10">dashboard</i>
@@ -21,7 +21,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-white @if (request()->is('petugas/buku')) active bg-gradient-primary @endif"
+                <a class="nav-link text-white @if (request()->is('petugas/buku')) active bg-gradient-secondary @endif"
                     href="/petugas/buku">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="material-icons opacity-10">library_books</i>
@@ -32,7 +32,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-white @if (request()->is('petugas/kategori')) active bg-gradient-primary @endif"
+                <a class="nav-link text-white @if (request()->is('petugas/kategori')) active bg-gradient-secondary @endif"
                     href="/petugas/kategori">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="material-icons opacity-10">sort</i>
@@ -43,7 +43,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-white @if (request()->is('petugas/peminjam')) active bg-gradient-primary @endif"
+                <a class="nav-link text-white @if (request()->is('petugas/peminjam')) active bg-gradient-secondary @endif"
                     href="/petugas/peminjam">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="material-icons opacity-10">local_library</i>
@@ -54,13 +54,25 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-white @if (request()->is('petugas/reviews')) active bg-gradient-primary @endif"
+                <a class="nav-link text-white @if (request()->is('petugas/reviews')) active bg-gradient-secondary @endif"
                     href="/petugas/reviews">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="material-icons opacity-10">reviews</i>
                     </div>
                     <span class="nav-link-text ms-1">
                         Ulasan
+                    </span>
+                </a>
+            </li>
+            <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8 mt-2">Account pages</h6>
+            <li class="nav-item">
+                <a class="nav-link text-white @if (request()->is('petugas/profile')) active bg-gradient-secondary @endif"
+                    href="/petugas/profile">
+                    <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="material-icons opacity-10">account_circle</i>
+                    </div>
+                    <span class="nav-link-text ms-1">
+                        Profile
                     </span>
                 </a>
             </li>
