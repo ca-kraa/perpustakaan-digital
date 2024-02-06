@@ -9,8 +9,8 @@
             <div class="col-12">
                 <div class="card my-4">
                     <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-                        <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
-                            <h6 class="text-white text-capitalize ps-3 mb-0 animate__bounce">Data Peminjam</h6>
+                        <div class="bg-gradient-secondary  shadow-secondary  border-radius-lg pt-4 pb-3">
+                            <h6 class="text-white text-capitalize ps-3 mb-0">Data Peminjam</h6>
                         </div>
 
                         <button class="btn btn-icon btn-3 btn-success mt-2" id="saveExcelButton" type="button"
@@ -65,8 +65,8 @@
         </div>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ asset('assets/cdn') }}/jq-uery.js"></script>
+    <script src="{{ asset('assets/cdn') }}/bootstrap.bundle.min"></script>
 
     <script>
         $(document).ready(function() {

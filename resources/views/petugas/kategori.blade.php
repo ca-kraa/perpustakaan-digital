@@ -8,7 +8,7 @@
             <div class="col-12">
                 <div class="card my-4">
                     <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-                        <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+                        <div class="bg-gradient-secondary shadow-secondary border-radius-lg pt-4 pb-3">
                             <h6 class="text-white text-capitalize ps-3 mb-0 animate__bounce">Kategori Buku</h6>
                         </div>
                         <button class="btn btn-icon btn-3 btn-primary mt-2" type="button" style="margin-right: 10px;"

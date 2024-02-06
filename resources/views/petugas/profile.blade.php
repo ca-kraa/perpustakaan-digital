@@ -3,7 +3,6 @@
 @section('Dashboard Untuk', 'Petugas')
 
 @section('konten')
-
     <div class="container-fluid px-2 px-md-4 user-select-none">
         <div class="page-header min-height-300 border-radius-xl mt-4"
             style="background-image: url('https://images.unsplash.com/photo-1505664194779-8beaceb93744?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);">
@@ -50,12 +49,6 @@
                                                 <p class="form-control">{{ Auth::user()->alamat }}</p>
                                             </h6>
                                         </li>
-                                        <li class="list-group-item border-0 px-0">
-                                            <h6 class="text-capitalize text-break text-body text-lg font-weight-bolder">
-                                                token
-                                                <p class="form-control">{{ Auth::user()->bearer_token }}</p>
-                                            </h6>
-                                        </li>
                                     </ul>
                                 </div>
                             </div>
@@ -86,6 +79,51 @@
                     </div>
                 </div>
             </div>
+            <li class="list-group-item border-0 px-0">
+                <h6 class="text-capitalize text-break text-body text-lg font-weight-bolder">
+                    Bearer Token
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="bearerToken" value="{{ Auth::user()->bearer_token }}"
+                            readonly>
+                        <button class="btn btn-outline-secondary btn-sm" type="button" onclick="copyToClipboard()">
+                            <i class="material-icons" style="font-size: 1.5em; vertical-align: middle;">content_copy</i>
+                        </button>
+                    </div>
+                </h6>
+            </li>
+            <hr class="horizontal dark mt-0 mb-2">
         </div>
+
+        <script src="{{ asset('assets/cdn') }}/jq-uery.js"></script>
+        <script src="{{ asset('assets/cdn') }}/bootstrap.bundle.min"></script>
+
+        <script>
+            function copyToClipboard() {
+                var copyText = document.getElementById("bearerToken");
+                copyText.select();
+                copyText.setSelectionRange(0, 99999);
+
+                document.execCommand("copy");
+
+                var alertContainer = document.createElement("div");
+                alertContainer.className =
+                    "alert alert-info text-white position-fixed top-0 end-0 m-3 animate__animated animate__fadeInDown";
+                alertContainer.style.maxWidth = "300px";
+
+                var alertContent = document.createTextNode("Bearer Token telah disalin");
+                alertContainer.appendChild(alertContent);
+
+                document.body.appendChild(alertContainer);
+
+                setTimeout(function() {
+                    alertContainer.classList.remove("animate__fadeInDown");
+                    alertContainer.classList.add("animate__fadeOutUp");
+
+                    setTimeout(function() {
+                        alertContainer.remove();
+                    }, 1000);
+                }, 3000);
+            }
+        </script>
 
     @endsection
