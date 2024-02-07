@@ -24,44 +24,18 @@
                 <a class="nav-link text-white @if (request()->is('peminjam/buku')) active bg-gradient-info @endif"
                     href="/peminjam/buku">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="material-icons opacity-10">library_books</i>
+                        <i class="material-icons opacity-10">book</i>
                     </div>
-                    <span class="nav-link-text ms-1">
-                        Buku
-                    </span>
+                    <span class="nav-link-text ms-1">Buku</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-white @if (request()->is('peminjam/kategori')) active bg-gradient-info @endif"
-                    href="/peminjam/kategori">
+                <a class="nav-link text-white @if (request()->is('peminjam/history')) active bg-gradient-info @endif"
+                    href="/peminjam/history">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="material-icons opacity-10">sort</i>
+                        <i class="material-icons opacity-10">history</i>
                     </div>
-                    <span class="nav-link-text ms-1">
-                        Kategori
-                    </span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link text-white @if (request()->is('peminjam/peminjam')) active bg-gradient-info @endif"
-                    href="/peminjam/peminjam">
-                    <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="material-icons opacity-10">local_library</i>
-                    </div>
-                    <span class="nav-link-text ms-1">
-                        Peminjam
-                    </span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link text-white @if (request()->is('peminjam/reviews')) active bg-gradient-info @endif"
-                    href="/peminjam/reviews">
-                    <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="material-icons opacity-10">reviews</i>
-                    </div>
-                    <span class="nav-link-text ms-1">
-                        Ulasan
-                    </span>
+                    <span class="nav-link-text ms-1">History</span>
                 </a>
             </li>
             <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8 mt-2">Account pages</h6>
