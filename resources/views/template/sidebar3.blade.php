@@ -12,7 +12,7 @@
     <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link text-white @if (request()->is('peminjam/home')) active bg-gradient-warning @endif"
+                <a class="nav-link text-white @if (request()->is('peminjam/home')) active bg-gradient-info @endif"
                     href="/peminjam/home">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="material-icons opacity-10">home</i>
@@ -21,7 +21,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-white @if (request()->is('peminjam/buku')) active bg-gradient-warning @endif"
+                <a class="nav-link text-white @if (request()->is('peminjam/buku')) active bg-gradient-info @endif"
                     href="/peminjam/buku">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="material-icons opacity-10">library_books</i>
@@ -32,7 +32,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-white @if (request()->is('peminjam/kategori')) active bg-gradient-warning @endif"
+                <a class="nav-link text-white @if (request()->is('peminjam/kategori')) active bg-gradient-info @endif"
                     href="/peminjam/kategori">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="material-icons opacity-10">sort</i>
@@ -43,7 +43,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-white @if (request()->is('peminjam/peminjam')) active bg-gradient-warning @endif"
+                <a class="nav-link text-white @if (request()->is('peminjam/peminjam')) active bg-gradient-info @endif"
                     href="/peminjam/peminjam">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="material-icons opacity-10">local_library</i>
@@ -54,7 +54,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-white @if (request()->is('peminjam/reviews')) active bg-gradient-warning @endif"
+                <a class="nav-link text-white @if (request()->is('peminjam/reviews')) active bg-gradient-info @endif"
                     href="/peminjam/reviews">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="material-icons opacity-10">reviews</i>
@@ -66,7 +66,7 @@
             </li>
             <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8 mt-2">Account pages</h6>
             <li class="nav-item">
-                <a class="nav-link text-white @if (request()->is('peminjam/profile')) active bg-gradient-warning @endif"
+                <a class="nav-link text-white @if (request()->is('peminjam/profile')) active bg-gradient-info @endif"
                     href="/peminjam/profile">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="material-icons opacity-10">account_circle</i>
