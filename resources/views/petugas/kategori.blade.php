@@ -1,5 +1,5 @@
 @extends('layout.main2')
-@section('title', 'Petugas | Kategori')
+@section('title', 'Kategori')
 @section('Dashboard Untuk', 'Petugas')
 
 @section('konten')

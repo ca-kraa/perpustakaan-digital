@@ -1,5 +1,5 @@
 @extends('layout.main2')
-@section('title', 'Petugas | Profile')
+@section('title', 'Profile')
 @section('Dashboard Untuk', 'Petugas')
 
 @section('konten')
@@ -26,58 +26,30 @@
                         </p>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="row">
-                        <div class="col-12 col-xl-6">
-                            <div class="card card-plain h-100">
-                                <div class="card-header pb-0 p-3">
-                                    <h6 class="mb-0">Account Settings</h6>
+                <div class="card card-plain">
+                    <div class="card-header pb-0 p-3">
+                        <h6 class="mb-0">Account Info</h6>
+                    </div>
+                    <div class="card-body p-3">
+                        <ul class="list-group">
+                            <li class="list-group-item border-0 px-0">
+                                <div class="input-group input-group-outline my-3">
+                                    <h6 class="text-capitalize text-body text-lg font-weight-bolder">Email
+                                        <input type="email" class="form-control" value="{{ Auth::user()->email }}"
+                                            disabled>
+                                    </h6>
                                 </div>
-                                <div class="card-body p-3">
-                                    <ul class="list-group">
-                                        <li class="list-group-item border-0 px-0">
-                                            <div class="input-group input-group-outline my-3">
-                                                <h6 class="text-capitalize text-body text-lg font-weight-bolder">Email
-                                                    <input type="email" class="form-control"
-                                                        value="{{ Auth::user()->email }}" disabled>
-                                                </h6>
-                                            </div>
-                                        </li>
-                                        <li class="list-group-item border-0 px-0">
-                                            <h6 class="text-capitalize text-break text-body text-lg font-weight-bolder">
-                                                alamat
-                                                <p class="form-control">{{ Auth::user()->alamat }}</p>
-                                            </h6>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-xl-6">
-                            <div class="card card-plain h-100">
-                                <div class="card-header pb-0 p-3">
-                                    <h6 class="mb-0">Password Update</h6>
-                                </div>
-                                <div class="card-body p-3">
-                                    <ul class="list-group">
-                                        <li class="list-group-item border-0 px-0">
-                                            <div class="input-group input-group-outline my-3">
-                                                <label class="form-label">New Password</label>
-                                                <input type="password" class="form-control">
-                                            </div>
-                                        </li>
-                                        <li class="list-group-item border-0 px-0">
-                                            <div class="input-group input-group-outline my-3">
-                                                <label class="form-label">Confirm Password</label>
-                                                <input type="password" class="form-control">
-                                            </div>
-                                        </li>
-                                        <button type="button" class="btn btn-secondary">Update Password</button>
-                                </div>
-                            </div>
-                        </div>
+                            </li>
+                            <li class="list-group-item border-0 px-0">
+                                <h6 class="text-capitalize text-break text-body text-lg font-weight-bolder">
+                                    alamat
+                                    <p class="form-control">{{ Auth::user()->alamat }}</p>
+                                </h6>
+                            </li>
+                        </ul>
                     </div>
                 </div>
+
             </div>
             <li class="list-group-item border-0 px-0">
                 <h6 class="text-capitalize text-break text-body text-lg font-weight-bolder">

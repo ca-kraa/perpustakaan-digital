@@ -142,7 +142,7 @@
                             var phoneNumber = prompt('Masukkan nomor WhatsApp Anda:');
                             if (phoneNumber) {
                                 var whatsappLink = 'https://wa.me/' + phoneNumber + '?text=' +
-                                    `*REGISTER AKUN ANDA BERHASIL*%0A=====================%0AUsername%20:%20*${formData.username}*%0ANama%20Lengkap%20:%20*${formData.namaLengkap}*%0AAlamat%20:%20*${formData.alamat}*%0AEmail%20:%20*${formData.email}*%0APassword%20:%20*${formData.password}*%0A%0ASetelah Anda menerima detail ini, kami sangat menyarankan Anda untuk segera mengubah password Anda demi keamanan akun Anda. Jika Anda mengalami kesulitan atau membutuhkan bantuan lebih lanjut.%0ATerima kasih%0A%0A*====================*`
+                                    `*REGISTER AKUN ANDA BERHASIL*%0A=====================%0AUsername%20:%20*${formData.username}*%0ANama%20Lengkap%20:%20*${formData.namaLengkap}*%0AAlamat%20:%20*${formData.alamat}*%0AEmail%20:%20*${formData.email}*%0APassword%20:%20*${formData.password}*%0A%0ASetelah Anda menerima detail ini, kami sangat menyarankan Anda untuk simpan dengan baik. Jika Anda mengalami kesulitan atau membutuhkan bantuan lebih lanjut.%0ATerima kasih%0A%0A*====================*`
                                 window.location.href = whatsappLink;
                             }
                         },

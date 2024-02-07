@@ -8,7 +8,7 @@
     <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('assets/dashboard-admin') }}/assets/img/apple-icon.png">
     <link rel="shortcut icon" href="{{ asset('favicon.ico') }}">
     <title>
-        Petugas | @yield('title')
+        Peminjam | @yield('title')
     </title>
     <link href="{{ asset('assets/cdn') }}/roboto.css" rel="stylesheet" />
     <link href="{{ asset('assets/dashboard-admin') }}/assets/css/nucleo-icons.css" rel="stylesheet" />
@@ -21,7 +21,7 @@
 </head>
 
 <body class="g-sidenav-show  bg-gray-200 user-select-none">
-    @include('template.sidebar2')
+    @include('template.sidebar3')
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
         @include('template.navbar')
         @yield('konten')
