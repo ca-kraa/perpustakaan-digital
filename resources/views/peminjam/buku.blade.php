@@ -46,38 +46,52 @@
 
     <script src="{{ asset('assets/cdn') }}/jquery.js"></script>
     <script src="{{ asset('assets/cdn') }}/bootstrap.bundle.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
 
     <script>
         $(document).ready(function() {
-            $('#tabelBuku').DataTable({
-                "processing": true,
-                "serverSide": true,
-                "ajax": {
-                    "url": "/api/show-data-buku",
-                    "type": "GET",
-                    "dataType": "json",
-                },
-                "paging": false,
-                "columns": [{
-                        "data": "judul"
-                    },
-                    {
-                        "data": "penulis"
-                    },
-                    {
-                        "data": "penerbit"
-                    },
-                    {
-                        "data": "tahun_terbit"
-                    },
-                    {
-                        "data": null,
-                        "render": function(data, type, row) {
-                            return '<button class="btn btn-sm btn-primary">Detail</button>';
-                        }
+            $.ajax({
+                url: '/api/show-data-buku',
+                type: 'GET',
+                success: function(data) {
+                    var bukuTableBody = $('#bukuTableBody');
+                    bukuTableBody.empty();
+
+                    // Periksa apakah data yang diterima adalah array
+                    if (Array.isArray(data)) {
+                        // Jika data adalah array, iterasi dan tampilkan
+                        data.forEach(function(buku) {
+                            var row = '<tr>' +
+                                '<td class="align-middle">' +
+                                '<div class="d-flex px-2 py-1">' +
+                                '<h6 class="mt-2 ml-4 text-sm">' + buku.judul + '</h6>' +
+                                '</div>' +
+                                '</td>' +
+                                '<td class="align-middle">' +
+                                '<div class="d-flex px-2 py-1">' +
+                                '<h6 class="mt-2 ml-4 text-sm">' + buku.penulis + '</h6>' +
+                                '</div>' +
+                                '</td>' +
+                                '<td class="align-middle">' +
+                                '<div class="d-flex px-2 py-1">' +
+                                '<h6 class="mt-2 ml-4 text-sm">' + buku.penerbit + '</h6>' +
+                                '</div>' +
+                                '</td>' +
+                                '<td class="align-middle">' +
+                                '<div class="d-flex px-2 py-1">' +
+                                '<h6 class="mt-2 ml-4 text-sm">' + buku.tahun_terbit + '</h6>' +
+                                '</div>' +
+                                '</td>' +
+                                '</tr>';
+                            bukuTableBody.append(row);
+                        });
+                    } else {
+                        // Jika data bukanlah array, tampilkan pesan kesalahan atau lakukan tindakan yang sesuai
+                        console.log('Data yang diterima bukanlah array.');
                     }
-                ]
+                },
+                error: function() {
+                    console.log('Error fetching data');
+                }
             });
         });
     </script>
