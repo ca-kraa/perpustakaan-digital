@@ -56,9 +56,7 @@
                     var bukuTableBody = $('#bukuTableBody');
                     bukuTableBody.empty();
 
-                    // Periksa apakah data yang diterima adalah array
                     if (Array.isArray(data)) {
-                        // Jika data adalah array, iterasi dan tampilkan
                         data.forEach(function(buku) {
                             var row = '<tr>' +
                                 '<td class="align-middle">' +
