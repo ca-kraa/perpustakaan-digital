@@ -4,7 +4,6 @@
 
 
 @section('konten')
-    <link rel="stylesheet" href="{{ asset('assets/cdn') }}/dataTables.min.css">
     <div class="container-fluid py-4">
         <div class="row">
             <div class="col-12">
@@ -46,8 +45,45 @@
     </div>
 
     <script src="{{ asset('assets/cdn') }}/jq-uery.js"></script>
-    <script src="{{ asset('assets/cdn') }}/bootstrap.bundle.min"></script>
+    <script src="{{ asset('assets/cdn') }}/bootstrap.bundle.min.js"></script>
     <script src="{{ asset('assets/cdn') }}/jquery.dataTables.min.js"></script>
 
-
+    <script>
+        $(document).ready(function() {
+            $('#tabelPetugas').DataTable({
+                "processing": true,
+                "serverSide": true,
+                "ajax": "/api/show-data-buku",
+                "columns": [{
+                        "data": "judul"
+                    },
+                    {
+                        "data": "penulis"
+                    },
+                    {
+                        "data": "penerbit"
+                    },
+                    {
+                        "data": "tahun_terbit"
+                    },
+                    {
+                        "data": "actions",
+                        "orderable": false,
+                        "searchable": false
+                    }
+                ],
+                "language": {
+                    "search": "Cari:",
+                    "lengthMenu": "Tampilkan _MENU_ entri",
+                    "info": "Menampilkan _START_ sampai _END_ dari _TOTAL_ entri",
+                    "paginate": {
+                        "first": "Pertama",
+                        "last": "Terakhir",
+                        "next": "Selanjutnya",
+                        "previous": "Sebelumnya"
+                    }
+                }
+            });
+        });
+    </script>
 @endsection

@@ -17,6 +17,7 @@
     <link id="pagestyle" href="{{ asset('assets/dashboard-admin') }}/assets/css/material-dashboard.css?v=3.1.0"
         rel="stylesheet" />
     <link href="{{ asset('assets/cdn') }}/animate_css.css" rel="stylesheet" />
+    <link href="{{ asset('assets/cdn') }}/dataTables.min.css" rel="stylesheet">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 
