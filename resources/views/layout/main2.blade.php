@@ -26,11 +26,11 @@
         @include('template.navbar')
         @yield('konten')
         @include('template.script')
-        <script>
+        {{-- <script>
             document.addEventListener('contextmenu', function(e) {
                 e.preventDefault();
             });
-        </script>
+        </script> --}}
 </body>
 
 </html>

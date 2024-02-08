@@ -66,7 +66,7 @@
             <hr class="horizontal dark mt-0 mb-2">
         </div>
 
-        <script src="{{ asset('assets/cdn') }}/jq-uery.js"></script>
+        <script src="{{ asset('assets/cdn') }}/jquery.js"></script>
         <script src="{{ asset('assets/cdn') }}/bootstrap.bundle.min.js"></script>
 
         <script>

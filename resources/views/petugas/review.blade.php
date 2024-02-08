@@ -61,8 +61,9 @@
         </div>
     </div>
 
-    <script src="{{ asset('assets/cdn') }}/jq-uery.js"></script>
+    <script src="{{ asset('assets/cdn') }}/jquery.js"></script>
     <script src="{{ asset('assets/cdn') }}/bootstrap.bundle.min.js"></script>
+
     <script>
         $(document).ready(function() {
             $.ajax({
