@@ -83,7 +83,6 @@
                             bukuTableBody.append(row);
                         });
                     } else {
-                        // Jika data bukanlah array, tampilkan pesan kesalahan atau lakukan tindakan yang sesuai
                         console.log('Data yang diterima bukanlah array.');
                     }
                 },
