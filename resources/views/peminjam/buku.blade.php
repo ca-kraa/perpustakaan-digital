@@ -15,7 +15,7 @@
                     </div>
                     <div class="card-body px-0 pb-2">
                         <div class="table-responsive p-0">
-                            <table class="table align-items-center mb-0" id="tabelPetugas">
+                            <table class="table align-items-center mb-0" id="tabelBuku">
                                 <thead>
                                     <tr>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
@@ -44,16 +44,21 @@
         </div>
     </div>
 
-    <script src="{{ asset('assets/cdn') }}/jq-uery.js"></script>
+    <script src="{{ asset('assets/cdn') }}/jquery.js"></script>
     <script src="{{ asset('assets/cdn') }}/bootstrap.bundle.min.js"></script>
-    <script src="{{ asset('assets/cdn') }}/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
 
     <script>
         $(document).ready(function() {
-            $('#tabelPetugas').DataTable({
+            $('#tabelBuku').DataTable({
                 "processing": true,
                 "serverSide": true,
-                "ajax": "/api/show-data-buku",
+                "ajax": {
+                    "url": "/api/show-data-buku",
+                    "type": "GET",
+                    "dataType": "json",
+                },
+                "paging": false,
                 "columns": [{
                         "data": "judul"
                     },
@@ -67,22 +72,12 @@
                         "data": "tahun_terbit"
                     },
                     {
-                        "data": "actions",
-                        "orderable": false,
-                        "searchable": false
+                        "data": null,
+                        "render": function(data, type, row) {
+                            return '<button class="btn btn-sm btn-primary">Detail</button>';
+                        }
                     }
-                ],
-                "language": {
-                    "search": "Cari:",
-                    "lengthMenu": "Tampilkan _MENU_ entri",
-                    "info": "Menampilkan _START_ sampai _END_ dari _TOTAL_ entri",
-                    "paginate": {
-                        "first": "Pertama",
-                        "last": "Terakhir",
-                        "next": "Selanjutnya",
-                        "previous": "Sebelumnya"
-                    }
-                }
+                ]
             });
         });
     </script>
