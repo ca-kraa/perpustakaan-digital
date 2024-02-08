@@ -52,47 +52,78 @@
 
     <script>
         $(document).ready(function() {
-            $.ajax({
-                url: '/api/show-data-buku',
-                type: 'GET',
-                success: function(data) {
-                    var bukuTableBody = $('#bukuTableBody');
-                    bukuTableBody.empty();
-
-                    if (Array.isArray(data)) {
-                        data.forEach(function(buku) {
-                            var row = '<tr>' +
-                                '<td class="align-middle">' +
-                                '<div class="d-flex px-2 py-1">' +
-                                '<h6 class="mt-2 ml-4 text-sm">' + buku.judul + '</h6>' +
-                                '</div>' +
-                                '</td>' +
-                                '<td class="align-middle">' +
-                                '<div class="d-flex px-2 py-1">' +
-                                '<h6 class="mt-2 ml-4 text-sm">' + buku.penulis + '</h6>' +
-                                '</div>' +
-                                '</td>' +
-                                '<td class="align-middle">' +
-                                '<div class="d-flex px-2 py-1">' +
-                                '<h6 class="mt-2 ml-4 text-sm">' + buku.penerbit + '</h6>' +
-                                '</div>' +
-                                '</td>' +
-                                '<td class="align-middle">' +
-                                '<div class="d-flex px-2 py-1">' +
-                                '<h6 class="mt-2 ml-4 text-sm">' + buku.tahun_terbit + '</h6>' +
-                                '</div>' +
-                                '</td>' +
-                                '</tr>';
-                            bukuTableBody.append(row);
-                        });
-                    } else {
-                        console.log('Data yang diterima bukanlah array.');
+            function fetchInitialData() {
+                $.ajax({
+                    url: '/api/show-data-buku',
+                    type: 'GET',
+                    success: function(data) {
+                        renderData(data);
+                    },
+                    error: function() {
+                        console.log('Error fetching initial data');
                     }
-                },
-                error: function() {
-                    console.log('Error fetching data');
+                });
+            }
+
+            function fetchData(searchQuery) {
+                var requestData = searchQuery ? {
+                    query: searchQuery
+                } : {};
+
+                $.ajax({
+                    url: '/api/search-buku',
+                    type: 'GET',
+                    data: requestData,
+                    success: function(data) {
+                        renderData(data);
+                    },
+                    error: function() {
+                        console.log('Error fetching data');
+                    }
+                });
+            }
+
+            function renderData(data) {
+                var bukuTableBody = $('#bukuTableBody');
+                bukuTableBody.empty();
+
+                if (Array.isArray(data)) {
+                    data.forEach(function(buku) {
+                        var row = '<tr>' +
+                            '<td class="align-middle">' +
+                            '<div class="d-flex px-2 py-1">' +
+                            '<h6 class="mt-2 ml-4 text-sm">' + buku.judul + '</h6>' +
+                            '</div>' +
+                            '</td>' +
+                            '<td class="align-middle">' +
+                            '<div class="d-flex px-2 py-1">' +
+                            '<h6 class="mt-2 ml-4 text-sm">' + buku.penulis + '</h6>' +
+                            '</div>' +
+                            '</td>' +
+                            '<td class="align-middle">' +
+                            '<div class="d-flex px-2 py-1">' +
+                            '<h6 class="mt-2 ml-4 text-sm">' + buku.penerbit + '</h6>' +
+                            '</div>' +
+                            '</td>' +
+                            '<td class="align-middle">' +
+                            '<div class="d-flex px-2 py-1">' +
+                            '<h6 class="mt-2 ml-4 text-sm">' + buku.tahun_terbit + '</h6>' +
+                            '</div>' +
+                            '</td>' +
+                            '</tr>';
+                        bukuTableBody.append(row);
+                    });
+                } else {
+                    console.log('Data yang diterima bukanlah array.');
                 }
+            }
+
+            $('input[type="search"]').on('input', function() {
+                var searchQuery = $(this).val();
+                fetchData(searchQuery);
             });
+
+            fetchInitialData();
         });
     </script>
 @endsection
