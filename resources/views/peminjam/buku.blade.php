@@ -66,9 +66,14 @@
             }
 
             function fetchData(searchQuery) {
-                var requestData = searchQuery ? {
+                if (!searchQuery.trim()) {
+                    fetchInitialData();
+                    return;
+                }
+
+                var requestData = {
                     query: searchQuery
-                } : {};
+                };
 
                 $.ajax({
                     url: '/api/search-buku',
@@ -77,11 +82,12 @@
                     success: function(data) {
                         renderData(data);
                     },
-                    error: function() {
-                        console.log('Error fetching data');
+                    error: function(error) {
+                        console.log('Error fetching data:', error);
                     }
                 });
             }
+
 
             function renderData(data) {
                 var bukuTableBody = $('#bukuTableBody');
