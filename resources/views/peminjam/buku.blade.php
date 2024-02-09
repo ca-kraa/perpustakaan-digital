@@ -47,92 +47,111 @@
         </div>
     </div>
 
+    <div class="modal fade" id="pinjamModal" tabindex="-1" aria-labelledby="pinjamModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="pinjamModalLabel">Detail Buku yang Dipinjam</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Judul: <span id="detailJudul"></span></p>
+                    <p>Penulis: <span id="detailPenulis"></span></p>
+                    <p>Penerbit: <span id="detailPenerbit"></span></p>
+                    <p>Tahun Terbit: <span id="detailTahunTerbit"></span></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Batalkan</button>
+                    <button type="button" class="btn btn-success" id="btnBuatPinjaman">Buat Pinjaman</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="{{ asset('assets/cdn') }}/jquery.js"></script>
     <script src="{{ asset('assets/cdn') }}/bootstrap.bundle.min.js"></script>
 
     <script>
         $(document).ready(function() {
-            function fetchInitialData() {
+            function showDataBuku() {
                 $.ajax({
-                    url: '/api/show-data-buku',
-                    type: 'GET',
-                    success: function(data) {
-                        renderData(data);
+                    url: "/api/show-data-buku",
+                    type: "GET",
+                    success: function(t) {
+                        updateTable(t);
                     },
                     error: function() {
-                        console.log('Error fetching initial data');
+                        console.log("Error fetching initial data");
                     }
                 });
             }
 
-            function fetchData(searchQuery) {
-                if (!searchQuery.trim()) {
-                    fetchInitialData();
-                    return;
-                }
-
-                var requestData = {
-                    query: searchQuery
-                };
-
-                $.ajax({
-                    url: '/api/search-buku',
-                    type: 'GET',
-                    data: requestData,
-                    success: function(data) {
-                        renderData(data);
-                    },
-                    error: function(error) {
-                        console.log('Error fetching data:', error);
-                    }
-                });
-            }
-
-
-            function renderData(data) {
-                var bukuTableBody = $('#bukuTableBody');
-                bukuTableBody.empty();
-
-                if (Array.isArray(data)) {
-                    data.forEach(function(buku) {
-                        var row = '<tr>' +
-                            '<td class="align-middle">' +
-                            '<div class="d-flex px-2 py-1">' +
-                            '<h6 class="mt-2 ml-4 text-sm">' + buku.judul + '</h6>' +
-                            '</div>' +
-                            '</td>' +
-                            '<td class="align-middle">' +
-                            '<div class="d-flex px-2 py-1">' +
-                            '<h6 class="mt-2 ml-4 text-sm">' + buku.penulis + '</h6>' +
-                            '</div>' +
-                            '</td>' +
-                            '<td class="align-middle">' +
-                            '<div class="d-flex px-2 py-1">' +
-                            '<h6 class="mt-2 ml-4 text-sm">' + buku.penerbit + '</h6>' +
-                            '</div>' +
-                            '</td>' +
-                            '<td class="align-middle">' +
-                            '<div class="d-flex px-2 py-1">' +
-                            '<h6 class="mt-2 ml-4 text-sm">' + buku.tahun_terbit + '</h6>' +
-                            '</div>' +
-                            '</td>' +
-                            '<td class="align-middle">' +
-                            '<button type="button" class="btn btn-info">Pinjam</button>' +
-                            '</td>' +
-                            '</tr>';
-                        bukuTableBody.append(row);
+            function updateTable(t) {
+                var i = $("#bukuTableBody");
+                i.empty();
+                if (Array.isArray(t)) {
+                    t.forEach(function(t) {
+                        var a =
+                            '<tr><td class="align-middle"><div class="d-flex px-2 py-1"><h6 class="mt-2 ml-4 text-sm">' +
+                            t.judul +
+                            '</h6></div></td><td class="align-middle"><div class="d-flex px-2 py-1"><h6 class="mt-2 ml-4 text-sm">' +
+                            t.penulis +
+                            '</h6></div></td><td class="align-middle"><div class="d-flex px-2 py-1"><h6 class="mt-2 ml-4 text-sm">' +
+                            t.penerbit +
+                            '</h6></div></td><td class="align-middle"><div class="d-flex px-2 py-1"><h6 class="mt-2 ml-4 text-sm">' +
+                            t.tahun_terbit +
+                            '</h6></div></td><td class="align-middle"><button type="button" class="btn btn-info btn-pinjam" data-bs-toggle="modal" data-bs-target="#pinjamModal" data-id="' +
+                            t.id + '">Pinjam</button></td></tr>';
+                        i.append(a);
                     });
                 } else {
-                    console.log('Data yang diterima bukanlah array.');
+                    console.log("Data yang diterima bukanlah array.");
                 }
             }
 
-            $('input[type="search"]').on('input', function() {
-                var searchQuery = $(this).val();
-                fetchData(searchQuery);
+            $('input[type="search"]').on("input", function() {
+                var query = $(this).val();
+                if (query.trim()) {
+                    var a = {
+                        query: query
+                    };
+                    $.ajax({
+                        url: "/api/search-buku",
+                        type: "GET",
+                        data: a,
+                        success: function(t) {
+                            updateTable(t);
+                        },
+                        error: function(t) {
+                            console.log("Error fetching data:", t);
+                        }
+                    });
+                } else {
+                    showDataBuku();
+                }
             });
 
-            fetchInitialData();
+            showDataBuku();
+        });
+
+        $(document).ready(function() {
+            $("#pinjamModal").on("show.bs.modal", function(t) {
+                var id = $(t.relatedTarget).data("id");
+                $.ajax({
+                    url: "/api/show-by-id-buku/" + id,
+                    type: "GET",
+                    success: function(t) {
+                        $("#detailJudul").text(t.judul);
+                        $("#detailPenulis").text(t.penulis);
+                        $("#detailPenerbit").text(t.penerbit);
+                        $("#detailTahunTerbit").text(t.tahun_terbit);
+                    },
+                    error: function(t) {
+                        console.log("Error fetching book data:", t);
+                    }
+                });
+            });
         });
     </script>
+
 @endsection
