@@ -132,13 +132,13 @@
             });
 
             showDataBuku();
-        });
 
-        $(document).ready(function() {
+            var id_buku;
+
             $("#pinjamModal").on("show.bs.modal", function(t) {
-                var id = $(t.relatedTarget).data("id");
+                id_buku = $(t.relatedTarget).data("id");
                 $.ajax({
-                    url: "/api/show-by-id-buku/" + id,
+                    url: "/api/show-by-id-buku/" + id_buku,
                     type: "GET",
                     success: function(t) {
                         $("#detailJudul").text(t.judul);
@@ -151,6 +151,27 @@
                     }
                 });
             });
+
+            $("#btnBuatPinjaman").click(function() {
+                var data = {
+                    id_buku: id_buku,
+                    _token: '{{ csrf_token() }}'
+                };
+                $.ajax({
+                    url: '/create-pinjam',
+                    type: 'POST',
+                    data: data,
+                    success: function(response) {
+                        window.open('/api/show-peminjam-by-id/' + response.data.id, 'newwindow',
+                            'width=600,height=400');
+                        location.reload();
+                    },
+                    error: function(error) {
+                        console.log("Error creating data:", error);
+                    }
+                });
+            });
+
         });
     </script>
 
