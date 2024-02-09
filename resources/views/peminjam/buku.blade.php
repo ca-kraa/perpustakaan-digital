@@ -116,6 +116,9 @@
                             '<h6 class="mt-2 ml-4 text-sm">' + buku.tahun_terbit + '</h6>' +
                             '</div>' +
                             '</td>' +
+                            '<td class="align-middle">' +
+                            '<button type="button" class="btn btn-info">Pinjam</button>' +
+                            '</td>' +
                             '</tr>';
                         bukuTableBody.append(row);
                     });
