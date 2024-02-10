@@ -162,7 +162,7 @@
                     type: 'POST',
                     data: data,
                     success: function(response) {
-                        window.open('/api/show-peminjam-by-id/' + response.data.id, 'newwindow',
+                        window.open('/peminjam/buku/' + response.data.id, 'newwindow',
                             'width=587,height=814');
                         location.reload();
                     },

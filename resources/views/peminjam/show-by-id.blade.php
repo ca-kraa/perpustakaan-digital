@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Detail Peminjaman</title>
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     @vite('resources/css/app.css')
     <link href="{{ asset('assets/icon') }}/css/fontawesome.css" rel="stylesheet">
     <link href="{{ asset('assets/icon') }}/css/brands.css" rel="stylesheet">
@@ -58,8 +59,14 @@
 
         </div>
 
-        <div class="mb-4">
+        <div class="mb-2">
             <img id="qr-code" class="mx-auto" src="" alt="QR Code">
+        </div>
+
+        <div class="flex justify-center mb-4">
+            <button id="btnClose" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                <i class="fa-solid fa-xmark"></i> Close Window
+            </button>
         </div>
 
     </div>
@@ -89,6 +96,10 @@
                 event.preventDefault();
                 return false;
             });
+        });
+
+        document.getElementById('btnClose').addEventListener('click', function() {
+            window.close();
         });
     </script>
 
