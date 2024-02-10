@@ -163,7 +163,7 @@
                     data: data,
                     success: function(response) {
                         window.open('/api/show-peminjam-by-id/' + response.data.id, 'newwindow',
-                            'width=600,height=400');
+                            'width=587,height=814');
                         location.reload();
                     },
                     error: function(error) {
