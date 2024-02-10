@@ -65,72 +65,146 @@
         </div>
     </div>
 
+    <div class="modal fade" id="statusModal" tabindex="-1" role="dialog" aria-labelledby="statusModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title font-weight-normal" id="statusModalLabel">Ubah Status</h5>
+                    <button type="button" class="btn-close text-dark" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" id="id">
+                    <p id="id_user"></p>
+                    <p id="id_buku"></p>
+                    <p id="tanggal_peminjaman"></p>
+                    <p id="tanggal_pengembalian"></p>
+                    <div class="input-group">
+                        <select id="status" class="form-select">
+                            <option value="Pending">Pending</option>
+                            <option value="Sudah Di Kembalikan">Sudah Di Kembalikan</option>
+                            <option value="Belum Di Kembalikan">Belum Di Kembalikan</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Tutup</button>
+                    <button type="button" id="updateStatusButton" class="btn bg-gradient-primary">Simpan Perubahan</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
     <script src="{{ asset('assets/cdn') }}/jquery.js"></script>
     <script src="{{ asset('assets/cdn') }}/bootstrap.bundle.min.js"></script>
 
     <script>
         $(document).ready(function() {
-            function loadDataPeminjam() {
+            function fetchData() {
                 $.ajax({
-                    url: '/api/show-data-peminjam',
-                    method: 'GET',
-                    success: function(dataPeminjam) {
+                    url: "/api/show-data-peminjam",
+                    method: "GET",
+                    success: function(data) {
                         var tbody = $("#peminjamBody");
                         tbody.empty();
-
-                        $.each(dataPeminjam, function(index, peminjam) {
+                        $.each(data, function(index, item) {
                             var row = $("<tr>");
-
                             row.append(
                                 '<td class="align-middle"><div class="d-flex px-2 py-1"><h6 class="mt-2 ml-4 text-sm">' +
-                                peminjam.id_user + '</h6></div></td>');
+                                item.id_user + "</h6></div></td>");
                             row.append(
                                 '<td class="align-middle"><div class="d-flex px-2 py-1"><h6 class="mt-2 ml-4 text-sm">' +
-                                peminjam.id_buku + '</h6></div></td>');
+                                item.id_buku + "</h6></div></td>");
                             row.append(
                                 '<td class="align-middle"><div class="d-flex px-2 py-1"><h6 class="mt-2 ml-4 text-sm">' +
-                                peminjam.tanggal_peminjaman + '</h6></div></td>');
+                                item.tanggal_peminjaman + "</h6></div></td>");
                             row.append(
                                 '<td class="align-middle"><div class="d-flex px-2 py-1"><h6 class="mt-2 ml-4 text-sm">' +
-                                peminjam.tanggal_pengembalian + '</h6></div></td>');
-
-                            var statusCell =
-                                '<td class="align-middle"><div class="d-flex px-2 py-1">';
-                            if (peminjam.status_peminjam === "Pending") {
-                                statusCell +=
-                                    '<span class="badge badge-md bg-secondary text-center">' +
-                                    peminjam.status_peminjam + '</span>';
-                            } else if (peminjam.status_peminjam === "Sudah Di Kembalikan") {
-                                statusCell +=
-                                    '<span class="badge badge-md bg-success text-center">' +
-                                    peminjam.status_peminjam + '</span>';
-                            } else if (peminjam.status_peminjam === "Belum Di Kembalikan") {
-                                statusCell +=
-                                    '<span class="badge badge-md bg-danger text-center">' +
-                                    peminjam.status_peminjam + '</span>';
+                                item.tanggal_pengembalian + "</h6></div></td>");
+                            var buttonColor;
+                            if (item.status_peminjam === 'Pending') {
+                                buttonColor = 'btn-info';
+                            } else if (item.status_peminjam === 'Sudah Di Kembalikan') {
+                                buttonColor = 'btn-success';
+                            } else if (item.status_peminjam === 'Belum Di Kembalikan') {
+                                buttonColor = 'btn-danger';
                             }
-                            statusCell += '</div></td>';
-                            row.append(statusCell);
 
+                            var button = '<td class="align-middle"><button class="btn btn-sm ' +
+                                buttonColor +
+                                ' btn-update-status" type="button" data-bs-toggle="modal" data-bs-target="#statusModal" data-id="' +
+                                item.id + '">' + item.status_peminjam + '</button></td>';
+                            row.append(button);
                             tbody.append(row);
                         });
                     },
-                    error: function(error) {
-                        console.error('Gagal mengambil data:', error);
+                    error: function(err) {
+                        console.error("Gagal mengambil data:", err);
                     }
                 });
             }
 
-            loadDataPeminjam();
+            fetchData();
 
-            $('#savePdfButton').on('click', function() {
-                window.location.href = '/petugas/pdf-peminjam';
+            $("#savePdfButton").on("click", function() {
+                window.location.href = "/petugas/pdf-peminjam";
             });
 
-            $('#saveExcelButton').on('click', function() {
-                window.location.href = '/petugas/excel-peminjam';
+            $("#saveExcelButton").on("click", function() {
+                window.location.href = "/petugas/excel-peminjam";
+            });
+
+            $('#statusModal').on('show.bs.modal', function(event) {
+                var button = $(event.relatedTarget);
+                var id = button.data('id');
+                var modal = $(this);
+                modal.find('.modal-body #id').val(id);
+
+                $.ajax({
+                    url: "/api/show-peminjam-by-id/" + id,
+                    method: "GET",
+                    success: function(data) {
+                        modal.find('.modal-body #id_user').text("ID User: " + data.id_user);
+                        modal.find('.modal-body #id_buku').text("ID Buku: " + data.id_buku);
+                        modal.find('.modal-body #tanggal_peminjaman').text(
+                            "Tanggal Peminjaman: " + data.tanggal_peminjaman);
+                        modal.find('.modal-body #tanggal_pengembalian').text(
+                            "Tanggal Pengembalian: " + data.tanggal_pengembalian);
+                        modal.find('.modal-body #status').val(data.status_peminjam);
+                    },
+                    error: function(err) {
+                        console.error("Gagal mengambil data:", err);
+                    }
+                });
+            });
+
+
+            $("#updateStatusButton").on("click", function() {
+                var id = $('#statusModal').find('.modal-body #id').val();
+                var status = $('#statusModal').find('.modal-body #status').val();
+                $.ajax({
+                    url: "/api/update-status/" + id,
+                    type: "PUT",
+                    data: {
+                        status_peminjam: status,
+                        _token: "{{ csrf_token() }}"
+                    },
+                    success: function(response) {
+                        fetchData();
+                        location.reload();
+                    },
+                    error: function(err) {
+                        console.error("Error updating status:", err);
+                    }
+                });
             });
         });
     </script>
+
 
 @endsection
