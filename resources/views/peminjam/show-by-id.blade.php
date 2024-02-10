@@ -81,6 +81,15 @@
         var qrCodeUrl = 'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=' + qrDataUrl;
         var qrCodeImg = document.getElementById('qr-code');
         qrCodeImg.src = qrCodeUrl;
+
+        var images = document.querySelectorAll('img');
+
+        images.forEach(function(img) {
+            img.addEventListener('dragstart', function(event) {
+                event.preventDefault();
+                return false;
+            });
+        });
     </script>
 
 </body>
