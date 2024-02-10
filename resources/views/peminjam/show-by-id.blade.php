@@ -57,7 +57,31 @@
             </div>
 
         </div>
+
+        <div class="mb-4">
+            <img id="qr-code" class="mx-auto" src="" alt="QR Code">
+        </div>
+
     </div>
+    <script>
+        var namaPeminjam = "{{ $peminjam->user->namaLengkap }}";
+        var judulBuku = "{{ $peminjam->buku->judul }}";
+        var tanggalPeminjaman = "{{ $peminjam['tanggal_peminjaman'] }}";
+        var tanggalPengembalian = "{{ $peminjam['tanggal_pengembalian'] }}";
+        var statusPeminjam = "{{ $peminjam['status_peminjam'] }}";
+
+        var qrData = "Nama Peminjam: " + namaPeminjam + "\n" +
+            "Judul Buku: " + judulBuku + "\n" +
+            "Tanggal Peminjaman: " + tanggalPeminjaman + "\n" +
+            "Tanggal Pengembalian: " + tanggalPengembalian + "\n" +
+            "Status Peminjam: " + statusPeminjam;
+
+        var qrDataUrl = encodeURIComponent(qrData);
+
+        var qrCodeUrl = 'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=' + qrDataUrl;
+        var qrCodeImg = document.getElementById('qr-code');
+        qrCodeImg.src = qrCodeUrl;
+    </script>
 
 </body>
 
