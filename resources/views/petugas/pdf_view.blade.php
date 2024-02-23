@@ -15,7 +15,8 @@
 </head>
 <body>
     <h2 style="text-align: center">Data Buku</h2>
-    <table>
+    <h3>Di Buat Oleh: {{ Auth::user()->namaLengkap }}</h3>
+<h3>Tanggal Cetak : {{ date('d/m/Y') }}</h3>    <table>
         <thead>
             <tr>
                 <th>No</th>
