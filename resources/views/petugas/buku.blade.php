@@ -216,12 +216,22 @@
                 stok: editedStok
             },
             success: function(response) {
-                console.log('Data berhasil diperbarui:', response);
                 $('#editDataBuku').modal('hide');
-                location.reload();
-            },
+                Swal.fire({
+            title: "Berhasil",
+            text: "Data Buku Anda Berhasil Di Ubah",
+            icon: "success",
+            }).then((result) => {
+            if (result.isConfirmed) {
+                location.reload(); 
+            }
+            });            },
             error: function(error) {
-                console.error('Gagal memperbarui data:', error);
+                Swal.fire({
+  title: "Error",
+  text: "Mohon Periksa Kembali Data Buku Yang Mau Di Ubah",
+  icon: "error"
+});
             }
         });
     });
@@ -245,11 +255,6 @@
         },
         success: function(response) {
             $('#tambahDataBukuModal').modal('hide');
-            $('#tambahJudul').val('');
-            $('#tambahPenulis').val('');
-            $('#tambahPenerbit').val('');
-            $('#tambahTahunTerbit').val('');
-            $('#tambahStok').val('');
             Swal.fire({
             title: "Berhasil",
             text: "Data Buku Anda Berhasil Di Buat",
