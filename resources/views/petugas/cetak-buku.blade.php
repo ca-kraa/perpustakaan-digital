@@ -25,6 +25,7 @@
                 <th>Penulis</th>
                 <th>Penerbit</th>
                 <th>Tahun Terbit</th>
+                <th>Stok</th>
             </tr>
         </thead>
         <tbody>
@@ -36,6 +37,7 @@
                     <td>{{ $b->penulis }}</td>
                     <td>{{ $b->penerbit }}</td>
                     <td>{{ $b->tahun_terbit }}</td>
+                    <td>{{ $b->stok }}</td>
                 </tr>
             @endforeach
         </tbody>
