@@ -51,6 +51,9 @@
                                         <th
                                             class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                                             Tahun Terbit</th>
+                                            <th
+                                            class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                            Stok</th>
                                         <th
                                             class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                                         </th>
@@ -94,6 +97,10 @@
                             <label for="editTahunTerbit" class="form-label">Tahun Terbit</label>
                             <input type="text" class="form-control" id="editTahunTerbit" name="tahun_terbit">
                         </div>
+                        <div class="mb-3">
+                            <label for="editStok" class="form-label">Stok</label>
+                            <input type="text" class="form-control" id="editStok" name="stok">
+                        </div>
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -133,6 +140,11 @@
                             <input type="number" class="form-control" id="tambahTahunTerbit" name="tahun_terbit"
                                 required>
                         </div>
+                        <div class="input-group input-group-outline mb-4">
+                            <label class="form-label" for="tambahstok">Stok</label>
+                            <input type="number" class="form-control" id="tambahstok" name="stok"
+                                required>
+                        </div>
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -147,185 +159,206 @@
     <script src="{{ asset('assets/cdn') }}/bootstrap.bundle.min.js"></script>
 
     <script>
-        $(document).ready(function() {
-            $('#savePdfButton').on('click', function() {
-                window.location.href = '/petugas/pdf-buku';
-            });
+    $(document).ready(function() {
+    $('#savePdfButton').on('click', function() {
+        window.location.href = '/petugas/pdf-buku';
+    });
+
+    $('#saveExcelButton').on('click', function() {
+        window.location.href = '/petugas/excel-buku';
+    });
+
+    loadDataBuku();
+
+    $(document).on('click', '.btn-delete', function() {
+        var id = $(this).data('id');
+        var judul = $(this).data('judul');
+        var isConfirmed = confirm('Apakah Anda yakin ingin menghapus buku "' + judul + '"?');
+
+        if (isConfirmed) {
+            deleteBuku(id);
+        }
+    });
+
+    $(document).on('click', '.btn-edit', function() {
+        var id = $(this).data('id');
+        var judul = $(this).data('judul');
+        var penulis = $(this).data('penulis');
+        var penerbit = $(this).data('penerbit');
+        var tahun_terbit = $(this).data('tahun_terbit');
+        var stok = $(this).data('stok');
+
+        $('#editBukuForm #editJudul').val(judul);
+        $('#editBukuForm #editPenulis').val(penulis);
+        $('#editBukuForm #editPenerbit').val(penerbit);
+        $('#editBukuForm #editTahunTerbit').val(tahun_terbit);
+        $('#editBukuForm #editStok').val(stok);
+
+        $('#btnSaveChanges').data('id', id);
+    });
+
+    $(document).on('click', '#btnSaveChanges', function() {
+        var id = $(this).data('id');
+        var editedJudul = $('#editJudul').val();
+        var editedPenulis = $('#editPenulis').val();
+        var editedPenerbit = $('#editPenerbit').val();
+        var editedTahunTerbit = $('#editTahunTerbit').val();
+        var editedStok = $('#editStok').val();
+
+        $.ajax({
+            url: '/api/edit-buku/' + id,
+            type: 'put',
+            data: {
+                judul: editedJudul,
+                penulis: editedPenulis,
+                penerbit: editedPenerbit,
+                tahun_terbit: editedTahunTerbit,
+                stok: editedStok
+            },
+            success: function(response) {
+                console.log('Data berhasil diperbarui:', response);
+                $('#editDataBuku').modal('hide');
+                location.reload();
+            },
+            error: function(error) {
+                console.error('Gagal memperbarui data:', error);
+            }
         });
+    });
 
-        $(document).ready(function() {
-            $('#saveExcelButton').on('click', function() {
-                window.location.href = '/petugas/excel-buku';
+    $(document).on('click', '#btnTambahBuku', function() {
+    var tambahJudul = $('#tambahJudul').val();
+    var tambahPenulis = $('#tambahPenulis').val();
+    var tambahPenerbit = $('#tambahPenerbit').val();
+    var tambahTahunTerbit = $('#tambahTahunTerbit').val();
+    var tambahStok = $('#tambahstok').val();
+
+    $.ajax({
+        url: '/api/create-buku',
+        type: 'post',
+        data: {
+            judul: tambahJudul,
+            penulis: tambahPenulis,
+            penerbit: tambahPenerbit,
+            tahun_terbit: tambahTahunTerbit,
+            stok: tambahStok,
+        },
+        success: function(response) {
+            $('#tambahDataBukuModal').modal('hide');
+            $('#tambahJudul').val('');
+            $('#tambahPenulis').val('');
+            $('#tambahPenerbit').val('');
+            $('#tambahTahunTerbit').val('');
+            $('#tambahStok').val('');
+            Swal.fire({
+            title: "Berhasil",
+            text: "Data Buku Anda Berhasil Di Buat",
+            icon: "success",
+            }).then((result) => {
+            if (result.isConfirmed) {
+                location.reload(); 
+            }
             });
-        });
-
-        $(document).ready(function() {
-
             loadDataBuku();
+        },
+        error: function(error) {
+            Swal.fire({
+  title: "Error",
+  text: "Silahkan Lengkapi Data Buku Terlebih Dahulu",
+  icon: "error"
+});
+        }
+    });
+});
+});
 
-            $(document).on('click', '.btn-delete', function() {
-                var id = $(this).data('id');
-                var judul = $(this).data('judul');
+function loadDataBuku() {
+    $.ajax({
+        url: '/api/show-data-buku',
+        type: 'get',
+        dataType: 'json',
+        success: function(data) {
+            $('#bukuTableBody').empty();
 
-                var isConfirmed = confirm('Apakah Anda yakin ingin menghapus buku "' + judul + '"?');
-
-                if (isConfirmed) {
-                    deleteBuku(id);
-                }
-            });
-
-            $(document).on('click', '.btn-edit', function() {
-                var id = $(this).data('id');
-                var judul = $(this).data('judul');
-                var penulis = $(this).data('penulis');
-                var penerbit = $(this).data('penerbit');
-                var tahun_terbit = $(this).data('tahun_terbit');
-
-                $('#editBukuForm #editJudul').val(judul);
-                $('#editBukuForm #editPenulis').val(penulis);
-                $('#editBukuForm #editPenerbit').val(penerbit);
-                $('#editBukuForm #editTahunTerbit').val(tahun_terbit);
-
-                $('#btnSaveChanges').data('id', id);
-            });
-
-            $(document).on('click', '#btnSaveChanges', function() {
-                var id = $(this).data('id');
-                var editedJudul = $('#editJudul').val();
-                var editedPenulis = $('#editPenulis').val();
-                var editedPenerbit = $('#editPenerbit').val();
-                var editedTahunTerbit = $('#editTahunTerbit').val();
-
-                $.ajax({
-                    url: '/api/edit-buku/' + id,
-                    type: 'put',
-                    data: {
-                        judul: editedJudul,
-                        penulis: editedPenulis,
-                        penerbit: editedPenerbit,
-                        tahun_terbit: editedTahunTerbit
-                    },
-                    success: function(response) {
-                        console.log('Data berhasil diperbarui:', response);
-                        $('#editDataBuku').modal('hide');
-                        location.reload();
-                    },
-                    error: function(error) {
-                        console.error('Gagal memperbarui data:', error);
-                    }
+            if (data.length > 0) {
+                data.forEach(function(buku) {
+                    var row = '<tr>' +
+                        '<td class="align-middle">' +
+                        '<div class="d-flex px-2 py-1">' +
+                        '<h6 class="mt-2 ml-4 text-sm">' + buku.judul + '</h6>' +
+                        '</div>' +
+                        '</td>' +
+                        '<td class="align-middle">' +
+                        '<div class="d-flex px-2 py-1">' +
+                        '<h6 class="mt-2 ml-4 text-sm">' + buku.penulis + '</h6>' +
+                        '</div>' +
+                        '</td>' +
+                        '<td class="align-middle">' +
+                        '<div class="d-flex px-2 py-1">' +
+                        '<h6 class="mt-2 ml-4 text-sm">' + buku.penerbit + '</h6>' +
+                        '</div>' +
+                        '</td>' +
+                        '<td class="align-middle">' +
+                        '<div class="d-flex px-2 py-1">' +
+                        '<h6 class="mt-2 ml-4 text-sm">' + buku.tahun_terbit + '</h6>' +
+                        '</div>' +
+                        '</td>' +
+                        '<td class="align-middle">' +
+                        '<div class="d-flex px-2 py-1">' +
+                        '<h6 class="mt-2 ml-4 text-sm">' + buku.stok + '</h6>' +
+                        '</div>' +
+                        '</td>' +
+                        '<td class="align-middle">' +
+                        '<div class="d-flex px-2 py-1">' +
+                        '<a class="text-success font-weight-bold text-xs btn-edit" ' +
+                        'data-bs-toggle="modal" data-bs-target="#editDataBuku" ' +
+                        'data-id="' + buku.id + '" data-judul="' + buku.judul +
+                        '" data-penulis="' + buku.penulis + '" data-penerbit="' +
+                        buku.penerbit + '" data-tahun_terbit="' + buku.tahun_terbit + '" data-stok="' + buku.stok + '">' +
+                        'Edit' +
+                        '</a>' +
+                        '<span class="mx-2"></span>' +
+                        '<a href="javascript:;" class="text-danger font-weight-bold text-xs btn-delete" ' +
+                        'data-toggle="tooltip" data-original-title="Hapus buku" ' +
+                        'data-id="' + buku.id + '" data-judul="' + buku.judul + '">' +
+                        'Hapus' +
+                        '</a>' +
+                        '</div>' +
+                        '</td>' +
+                        '</tr>';
+                    $('#bukuTableBody').append(row);
                 });
-            });
-
-            function loadDataBuku() {
-                $.ajax({
-                    url: '/api/show-data-buku',
-                    type: 'get',
-                    dataType: 'json',
-                    success: function(data) {
-                        $('#bukuTableBody').empty();
-
-                        if (data.length > 0) {
-                            data.forEach(function(buku) {
-                                var row = '<tr>' +
-                                    '<td class="align-middle">' +
-                                    '<div class="d-flex px-2 py-1">' +
-                                    '<h6 class="mt-2 ml-4 text-sm">' + buku.judul + '</h6>' +
-                                    '</div>' +
-                                    '</td>' +
-                                    '<td class="align-middle">' +
-                                    '<div class="d-flex px-2 py-1">' +
-                                    '<h6 class="mt-2 ml-4 text-sm">' + buku.penulis + '</h6>' +
-                                    '</div>' +
-                                    '</td>' +
-                                    '<td class="align-middle">' +
-                                    '<div class="d-flex px-2 py-1">' +
-                                    '<h6 class="mt-2 ml-4 text-sm">' + buku.penerbit + '</h6>' +
-                                    '</div>' +
-                                    '</td>' +
-                                    '<td class="align-middle">' +
-                                    '<div class="d-flex px-2 py-1">' +
-                                    '<h6 class="mt-2 ml-4 text-sm">' + buku.tahun_terbit +
-                                    '</h6>' +
-                                    '</div>' +
-                                    '</td>' +
-                                    '<td class="align-middle">' +
-                                    '<div class="d-flex px-2 py-1">' +
-                                    '<a class="text-success font-weight-bold text-xs btn-edit" ' +
-                                    'data-bs-toggle="modal" data-bs-target="#editDataBuku" ' +
-                                    'data-id="' + buku.id + '" data-judul="' + buku.judul +
-                                    '" data-penulis="' + buku.penulis + '" data-penerbit="' +
-                                    buku.penerbit +
-                                    '" data-tahun_terbit="' + buku.tahun_terbit + '">' +
-                                    'Edit' +
-                                    '</a>' +
-                                    '<span class="mx-2"></span>' +
-                                    '<a href="javascript:;" class="text-danger font-weight-bold text-xs btn-delete" ' +
-                                    'data-toggle="tooltip" data-original-title="Hapus buku" ' +
-                                    'data-id="' + buku.id + '" data-judul="' + buku.judul +
-                                    '">' +
-                                    'Hapus' +
-                                    '</a>' +
-                                    '</div>' +
-                                    '</td>' +
-                                    '</tr>';
-                                $('#bukuTableBody').append(row);
-                            });
-                        } else {
-                            var emptyRow = '<tr id="emptyRow">' +
-                                '<td class="text-center" colspan="5">' +
-                                'Silahkan tambahkan data terlebih dahulu <br>' +
-                                '(〃￣︶￣)人(￣︶￣〃)' +
-                                '</td>' +
-                                '</tr>';
-                            $('#bukuTableBody').append(emptyRow);
-                        }
-                    },
-                    error: function(error) {
-                        console.log('Error fetching data:', error);
-                    }
-                });
+            } else {
+                var emptyRow = '<tr id="emptyRow">' +
+                    '<td class="text-center" colspan="5">' +
+                    'Silahkan tambahkan data terlebih dahulu <br>' +
+                    '(〃￣︶￣)人(￣︶￣〃)' +
+                    '</td>' +
+                    '</tr>';
+                $('#bukuTableBody').append(emptyRow);
             }
+        },
+        error: function(error) {
+            console.log('Error fetching data:', error);
+        }
+    });
+}
 
-            function deleteBuku(id) {
-                $.ajax({
-                    url: '/api/delete-buku/' + id,
-                    type: 'delete',
-                    success: function() {
-                        loadDataBuku();
-                    },
-                    error: function(error) {
-                        console.log('Error deleting data:', error);
-                    }
-                });
-            }
-        });
 
-        $(document).ready(function() {
-            $(document).on('click', '#btnTambahBuku', function() {
-                var tambahJudul = $('#tambahJudul').val();
-                var tambahPenulis = $('#tambahPenulis').val();
-                var tambahPenerbit = $('#tambahPenerbit').val();
-                var tambahTahunTerbit = $('#tambahTahunTerbit').val();
-
-                $.ajax({
-                    url: '/api/create-buku',
-                    type: 'post',
-                    data: {
-                        judul: tambahJudul,
-                        penulis: tambahPenulis,
-                        penerbit: tambahPenerbit,
-                        tahun_terbit: tambahTahunTerbit
-                    },
-                    success: function(response) {
-                        console.log('Data berhasil ditambahkan:', response);
-                        location.reload();
-                    },
-                    error: function(error) {
-                        console.error('Gagal menambahkan data:', error);
-                    }
-                });
-            });
-        });
+function deleteBuku(id) {
+    $.ajax({
+        url: '/api/delete-buku/' + id,
+        type: 'delete',
+        success: function() {
+            loadDataBuku();
+        },
+        error: function(error) {
+            console.log('Error deleting data:', error);
+        }
+    });
+}
     </script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 @endsection
