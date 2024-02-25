@@ -89,32 +89,35 @@
                     }
                 });
             }
-
             function updateTable(t) {
-                var i = $("#bukuTableBody");
-                i.empty();
-                if (Array.isArray(t)) {
-                    t.forEach(function(t) {
-                        var a =
-                            '<tr><td class="align-middle"><div class="d-flex px-2 py-1"><h6 class="mt-2 ml-4 text-sm">' +
-                            t.judul +
-                            '</h6></div></td><td class="align-middle"><div class="d-flex px-2 py-1"><h6 class="mt-2 ml-4 text-sm">' +
-                            t.penulis +
-                            '</h6></div></td><td class="align-middle"><div class="d-flex px-2 py-1"><h6 class="mt-2 ml-4 text-sm">' +
-                            t.penerbit +
-                            '</h6></div></td><td class="align-middle"><div class="d-flex px-2 py-1"><h6 class="mt-2 ml-4 text-sm">' +
-                            t.tahun_terbit +
-                            '</h6></div></td><td class="align-middle"><div class="d-flex px-2 py-1"><h6 class="mt-2 ml-4 text-sm">' +
-                            t.stok
-                            +
-                            '</h6></div></td><td class="align-middle"><button type="button" class="btn btn-info btn-pinjam" data-bs-toggle="modal" data-bs-target="#pinjamModal" data-id="' +
+            var i = $("#bukuTableBody");
+            i.empty();
+            if (Array.isArray(t)) {
+                t.forEach(function(t) {
+                    var a =
+                        '<tr><td class="align-middle"><div class="d-flex px-2 py-1"><h6 class="mt-2 ml-4 text-sm">' +
+                        t.judul +
+                        '</h6></div></td><td class="align-middle"><div class="d-flex px-2 py-1"><h6 class="mt-2 ml-4 text-sm">' +
+                        t.penulis +
+                        '</h6></div></td><td class="align-middle"><div class="d-flex px-2 py-1"><h6 class="mt-2 ml-4 text-sm">' +
+                        t.penerbit +
+                        '</h6></div></td><td class="align-middle"><div class="d-flex px-2 py-1"><h6 class="mt-2 ml-4 text-sm">' +
+                        t.tahun_terbit +
+                        '</h6></div></td><td class="align-middle"><div class="d-flex px-2 py-1"><h6 class="mt-2 ml-4 text-sm">' +
+                        t.stok +
+                        '</h6></div></td>';
+
+                    if (t.stok > 0) {
+                        a += '<td class="align-middle"><button type="button" class="btn btn-info btn-pinjam" data-bs-toggle="modal" data-bs-target="#pinjamModal" data-id="' +
                             t.id + '">Pinjam</button></td></tr>';
-                        i.append(a);
-                    });
-                } else {
-                    console.log("Data yang diterima bukanlah array.");
-                }
+                    } else {
+                        a += '<td class="align-middle"></td></tr>';
+                    }
+                    i.append(a);
+                });
+            } else {
             }
+}
 
             $('input[type="search"]').on("input", function() {
                 var query = $(this).val();
