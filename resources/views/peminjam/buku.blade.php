@@ -32,6 +32,9 @@
                                         <th
                                             class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                                             Tahun Terbit</th>
+                                            <th
+                                            class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                            Stok</th>
                                         <th
                                             class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                                         </th>
@@ -59,6 +62,7 @@
                     <p>Penulis: <span id="detailPenulis"></span></p>
                     <p>Penerbit: <span id="detailPenerbit"></span></p>
                     <p>Tahun Terbit: <span id="detailTahunTerbit"></span></p>
+                    <p>Stok : <span id="detailStok"></span></p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Batalkan</button>
@@ -100,6 +104,9 @@
                             t.penerbit +
                             '</h6></div></td><td class="align-middle"><div class="d-flex px-2 py-1"><h6 class="mt-2 ml-4 text-sm">' +
                             t.tahun_terbit +
+                            '</h6></div></td><td class="align-middle"><div class="d-flex px-2 py-1"><h6 class="mt-2 ml-4 text-sm">' +
+                            t.stok
+                            +
                             '</h6></div></td><td class="align-middle"><button type="button" class="btn btn-info btn-pinjam" data-bs-toggle="modal" data-bs-target="#pinjamModal" data-id="' +
                             t.id + '">Pinjam</button></td></tr>';
                         i.append(a);
@@ -145,6 +152,7 @@
                         $("#detailPenulis").text(t.penulis);
                         $("#detailPenerbit").text(t.penerbit);
                         $("#detailTahunTerbit").text(t.tahun_terbit);
+                        $("#detailStok").text(t.stok);
                     },
                     error: function(t) {
                         console.log("Error fetching book data:", t);

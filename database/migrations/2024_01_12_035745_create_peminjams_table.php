@@ -17,7 +17,7 @@ return new class extends Migration
             $table->integer('id_buku');
             $table->date('tanggal_peminjaman');
             $table->date('tanggal_pengembalian');
-            $table->enum('status_peminjam', ['Sudah Di Kembalikan', 'Belum Di Kembalikan', 'Pending'])->default('Pending');
+            $table->enum('status_peminjam', ['Sudah Di Kembalikan', 'Belum Di Kembalikan', 'Pending', 'DiPinjam'])->default('Pending');
             $table->timestamps();
         });
     }

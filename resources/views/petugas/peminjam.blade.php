@@ -24,11 +24,20 @@
                             <span class="btn-inner--icon"><i class="material-icons">picture_as_pdf</i></span>
                             <span class="btn-inner--text">Simpan PDF</span>
                         </button>
+                        
                         <a href="print-peminjam" target="_blank" class="btn btn-icon btn-3 btn-warning mt-2"
                             style="margin-right: 10px;">
                             <span class="btn-inner--icon"><i class="material-icons">print</i></span>
                             <span class="btn-inner--text">Cetak</span>
                         </a>
+
+                        <button class="btn btn-icon btn-3 btn-danger mt-2" type="button" id="refresh"
+                        style="margin-right: 10px;">
+                        <span class="btn-inner--icon"><i class="material-icons">refresh</i></span>
+                        <span class="btn-inner--text">Refresh</span>
+                    </button>
+
+
                     </div>
                     <div class="card-body px-0 pb-2">
                         <div class="table-responsive p-0">
@@ -86,6 +95,7 @@
                             <option value="Pending">Pending</option>
                             <option value="Sudah Di Kembalikan">Sudah Di Kembalikan</option>
                             <option value="Belum Di Kembalikan">Belum Di Kembalikan</option>
+                            <option value="Sedang Di Pinjam">Sedang Di Pinjam</option>
                         </select>
                     </div>
                 </div>
@@ -97,11 +107,9 @@
         </div>
     </div>
 
-
-
-
     <script src="{{ asset('assets/cdn') }}/jquery.js"></script>
     <script src="{{ asset('assets/cdn') }}/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
         $(document).ready(function() {
@@ -134,6 +142,9 @@
                             } else if (item.status_peminjam === 'Belum Di Kembalikan') {
                                 buttonColor = 'btn-danger';
                             }
+                            else if (item.status_peminjam === 'Sedang Di Pinjam') {
+                                buttonColor = 'btn-warning';
+                            }
 
                             var button = '<td class="align-middle"><button class="btn btn-sm ' +
                                 buttonColor +
@@ -151,13 +162,65 @@
 
             fetchData();
 
-            $("#savePdfButton").on("click", function() {
-                window.location.href = "/petugas/pdf-peminjam";
-            });
+            $("#refresh").on("click", function() {
+    fetchData();
+});
 
-            $("#saveExcelButton").on("click", function() {
-                window.location.href = "/petugas/excel-peminjam";
-            });
+
+$("#savePdfButton").on("click", function() {
+    Swal.fire({
+        title: 'Memuat Dokumen PDF',
+        html: 'Permintaan Anda Sedang Di Proses',
+        timerProgressBar: true,
+        didOpen: () => {
+            Swal.showLoading();
+        }
+    });
+
+    setTimeout(() => {
+        window.location.href = "/petugas/pdf-peminjam";
+        Swal.close();
+    }, 4000);
+});
+
+
+$("#saveExcelButton").on("click", function() {
+    Swal.fire({
+        title: 'Memuat Dokumen Excel',
+        html: 'Permintaan Anda Sedang Di Proses',
+        timerProgressBar: true,
+        didOpen: () => {
+            Swal.showLoading();
+        }
+    });
+
+    setTimeout(() => {
+        window.location.href = "/petugas/excel-peminjam";
+        Swal.close();
+    }, 4000); 
+});
+
+$("a[href='print-peminjam']").on("click", function(e) {
+    e.preventDefault(); 
+    let timerInterval;
+    Swal.fire({
+        title: "Anda akan dialihkan ke halaman cetak",
+        html: "Mohon tunggu...",
+        didOpen: () => {
+            Swal.showLoading();
+        },
+        didClose: () => {
+            clearInterval(timerInterval);
+        }
+    });
+
+    setTimeout(() => {
+        window.open("print-peminjam", "_blank");
+        Swal.close();
+    }, 2000);
+
+});
+
 
             $('#statusModal').on('show.bs.modal', function(event) {
                 var button = $(event.relatedTarget);
@@ -204,6 +267,8 @@
                 });
             });
         });
+
+
     </script>
 
 

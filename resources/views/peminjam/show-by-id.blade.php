@@ -50,6 +50,7 @@
                         :</span> <span
                         class="inline-block px-3 py-1 text-xs font-semibold leading-tight
                     @if ($peminjam['status_peminjam'] === 'Pending') bg-gray-400
+                    @elseif($peminjam['status_peminjam'] === 'Sedang Di Pinjam') bg-yellow-500
                     @elseif($peminjam['status_peminjam'] === 'Belum Di Kembalikan') bg-red-500
                     @else bg-green-500 @endif
                     rounded-full">

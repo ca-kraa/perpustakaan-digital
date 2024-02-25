@@ -26,6 +26,7 @@
         @include('template.navbar')
         @yield('konten')
         @include('template.script')
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         {{-- <script>
             document.addEventListener('contextmenu', function(e) {
                 e.preventDefault();
