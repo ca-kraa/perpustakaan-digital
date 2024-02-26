@@ -89,6 +89,11 @@
                             <input type="text" class="form-control" id="editJudul" name="judul">
                         </div>
                         <div class="mb-3">
+                            <label for="editKategori" class="form-label">Kategori</label>
+                            <select class="form-select" id="editKategori" name="kategori">
+                                </select>
+                        </div>    
+                        <div class="mb-3">
                             <label for="editPenulis" class="form-label">Penulis</label>
                             <input type="text" class="form-control" id="editPenulis" name="penulis">
                         </div>
@@ -217,21 +222,38 @@ $(document).ready(function() {
     });
 
     $(document).on('click', '.btn-edit', function() {
-        var id = $(this).data('id');
-        var judul = $(this).data('judul');
-        var penulis = $(this).data('penulis');
-        var penerbit = $(this).data('penerbit');
-        var tahun_terbit = $(this).data('tahun_terbit');
-        var stok = $(this).data('stok');
+    var id = $(this).data('id');
+    var judul = $(this).data('judul');
+    var penulis = $(this).data('penulis');
+    var penerbit = $(this).data('penerbit');
+    var tahun_terbit = $(this).data('tahun_terbit');
+    var stok = $(this).data('stok');
+    var kategori = $(this).data('kategori');
 
-        $('#editBukuForm #editJudul').val(judul);
-        $('#editBukuForm #editPenulis').val(penulis);
-        $('#editBukuForm #editPenerbit').val(penerbit);
-        $('#editBukuForm #editTahunTerbit').val(tahun_terbit);
-        $('#editBukuForm #editStok').val(stok);
+    $('#editBukuForm #editJudul').val(judul);
+    $('#editBukuForm #editPenulis').val(penulis);
+    $('#editBukuForm #editPenerbit').val(penerbit);
+    $('#editBukuForm #editTahunTerbit').val(tahun_terbit);
+    $('#editBukuForm #editStok').val(stok);
+    $('#editBukuForm #editKategori').val(kategori);
 
-        $('#btnSaveChanges').data('id', id);
+    $('#btnSaveChanges').data('id', id);
+
+    $.ajax({
+        url: '/api/show-data-kategori',
+        type: 'GET',
+        success: function(response) {
+            $('#editKategori').empty();
+            response.forEach(function(kategori) {
+                $('#editKategori').append('<option value="' + kategori.id + '">' + kategori.nama_kategori + '</option>');
+            });
+        },
+        error: function() {
+            alert('Gagal mengambil kategori.');
+        }
     });
+});
+
 
     $(document).on('click', '#btnSaveChanges', function() {
         var id = $(this).data('id');
@@ -240,6 +262,7 @@ $(document).ready(function() {
         var editedPenerbit = $('#editPenerbit').val();
         var editedTahunTerbit = $('#editTahunTerbit').val();
         var editedStok = $('#editStok').val();
+        var editedKategori = $('#editKategori').val();
 
         $.ajax({
             url: '/api/edit-buku/' + id,
@@ -249,7 +272,8 @@ $(document).ready(function() {
                 penulis: editedPenulis,
                 penerbit: editedPenerbit,
                 tahun_terbit: editedTahunTerbit,
-                stok: editedStok
+                stok: editedStok,
+                kategori: editedKategori
             },
             success: function(response) {
                 $('#editDataBuku').modal('hide');
