@@ -44,6 +44,9 @@
                                             Judul</th>
                                         <th
                                             class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                            Kategori</th>
+                                            <th
+                                            class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                                             Penulis</th>
                                         <th
                                             class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
@@ -127,6 +130,11 @@
                             <label class="form-label" for="tambahJudul">Judul</label>
                             <input type="text" class="form-control" id="tambahJudul" name="judul" required>
                         </div>
+                        <div class="input-group input-group-static mb-4">
+                            <select class="form-select" id="tambahKategori" name="tambahKategori" required>
+                                <option disabled selected>Silahkan Pilih Kategori</option>
+                            </select>
+                        </div>
                         <div class="input-group input-group-outline mb-4">
                             <label class="form-label" for="tambahPenulis">Penulis</label>
                             <input type="text" class="form-control" id="tambahPenulis" name="penulis" required>
@@ -159,6 +167,34 @@
     <script src="{{ asset('assets/cdn') }}/bootstrap.bundle.min.js"></script>
 
     <script>
+
+$(document).ready(function() {
+    $.ajax({
+        url: '/api/show-data-kategori',
+        method: 'GET',
+        success: function(response) {
+            response.sort(function(a, b) {
+                var namaA = a.nama_kategori.toUpperCase(); 
+                var namaB = b.nama_kategori.toUpperCase(); 
+                if (namaA < namaB) {
+                    return -1;
+                }
+                if (namaA > namaB) {
+                    return 1;
+                }
+                return 0;
+            });
+            response.forEach(function(item) {
+                $('#tambahKategori').append('<option value="' + item.id + '">' + item.nama_kategori + '</option>');
+            });
+        },
+        error: function() {
+            alert('Gagal mengambil kategori.');
+        }
+    });
+});
+
+
     $(document).ready(function() {
     $('#savePdfButton').on('click', function() {
         window.location.href = '/petugas/pdf-buku';
@@ -242,6 +278,7 @@
     var tambahPenerbit = $('#tambahPenerbit').val();
     var tambahTahunTerbit = $('#tambahTahunTerbit').val();
     var tambahStok = $('#tambahstok').val();
+    var tambahKategori = $('#tambahKategori').val();
 
     $.ajax({
         url: '/api/create-buku',
@@ -252,6 +289,7 @@
             penerbit: tambahPenerbit,
             tahun_terbit: tambahTahunTerbit,
             stok: tambahStok,
+            kategori: tambahKategori,
         },
         success: function(response) {
             $('#tambahDataBukuModal').modal('hide');
@@ -280,7 +318,7 @@
 function loadDataBuku() {
     $.ajax({
         url: '/api/show-data-buku',
-        type: 'get',
+        type: 'GET',
         dataType: 'json',
         success: function(data) {
             $('#bukuTableBody').empty();
@@ -291,6 +329,11 @@ function loadDataBuku() {
                         '<td class="align-middle">' +
                         '<div class="d-flex px-2 py-1">' +
                         '<h6 class="mt-2 ml-4 text-sm">' + buku.judul + '</h6>' +
+                        '</div>' +
+                        '</td>' +
+                        '<td class="align-middle">' +
+                        '<div class="d-flex px-2 py-1">' +
+                        '<h6 class="mt-2 ml-4 text-sm">' + buku.kategori + '</h6>' +
                         '</div>' +
                         '</td>' +
                         '<td class="align-middle">' +
