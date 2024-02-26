@@ -26,6 +26,7 @@
 																<tr>
 																				<th>No</th>
 																				<th>Judul</th>
+																				<th>Kategori</th>
 																				<th>Penulis</th>
 																				<th>Penerbit</th>
 																				<th>Tahun Terbit</th>
@@ -37,6 +38,7 @@
 																				<tr>
 																								<td>{{ $key + 1 }}</td>
 																								<td>{{ $buku["judul"] }}</td>
+																								<td>{{ $buku["kategori"] }}</td>
 																								<td>{{ $buku["penulis"] }}</td>
 																								<td>{{ $buku["penerbit"] }}</td>
 																								<td>{{ $buku["tahun_terbit"] }}</td>

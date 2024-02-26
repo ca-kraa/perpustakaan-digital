@@ -42,7 +42,7 @@
                 </tr>
             @endforeach
         </tbody>
-    </table>
+        </table>
 </body>
 
 </html>

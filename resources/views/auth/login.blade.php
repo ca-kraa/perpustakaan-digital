@@ -32,6 +32,15 @@
             </label>
         </div>
 
+        <div class="mt-4">
+            <label for="g-recaptcha" class="block font-medium text-sm text-gray-700"></label>
+            <div class="g-recaptcha" data-sitekey="{{ env('GOOGLE_RECAPTCHA_SITE_KEY') }}"></div>
+            @error('g-recaptcha-response')
+                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+            @enderror
+        </div>
+        
+
         <div class="flex items-center justify-end mt-4">
             @if (Route::has('password.request'))
                 <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
@@ -44,4 +53,12 @@
             </x-primary-button>
         </div>
     </form>
+    <script async src="https://www.google.com/recaptcha/api.js"></script>
+<script>
+  grecaptcha.ready(function(){
+    grecaptcha.render("container", {
+      sitekey: "{{ env('GOOGLE_RECAPTCHA_SITE_KEY') }}"
+    });
+  });
+</script>
 </x-guest-layout>

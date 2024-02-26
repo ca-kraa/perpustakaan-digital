@@ -97,123 +97,146 @@
     <script src="{{ asset('assets/cdn') }}/bootstrap.bundle.min.js"></script>
 
     <script>
-        $(document).ready(function() {
-            loadDataKategori();
+ 
+ $(document).ready(function() {
+    loadDataKategori();
 
-            $('#btnAddCategory').on('click', function() {
-                var newCategory = $('#newCategory').val();
+    $('#btnAddCategory').on('click', function() {
+        var newCategory = $('#newCategory').val();
 
-                $.ajax({
-                    url: '/api/create-kategori',
-                    type: 'post',
-                    dataType: 'json',
-                    data: {
-                        nama_kategori: newCategory
-                    },
-                    success: function(response) {
-                        loadDataKategori();
-                        $('#addNewCategoryModal').modal('hide');
-                    },
-                    error: function(error) {
-                        console.log('Error adding category:', error);
-                    }
-                });
-            });
-
-            function loadDataKategori() {
-                $.ajax({
-                    url: "/api/show-data-kategori",
-                    type: "GET",
-                    dataType: "json",
-                    success: function(data) {
-                        $("#katgoriTableBody").empty();
-                        if (data.length > 0) {
-                            $.each(data, function(index, item) {
-                                var row = '<tr>' +
-                                    '<td class="align-middle">' +
-                                    '<div class="d-flex px-2 py-1">' +
-                                    '<h6 class="mt-2 ml-4 text-sm">' + item.nama_kategori +
-                                    '</h6>' +
-                                    '</div></td>' +
-                                    '<td class="align-middle"><div class="d-flex px-2 py-1">' +
-                                    '<a class="text-success font-weight-bold text-xs btn-edit" data-bs-toggle="modal" data-bs-target="#editDataKategori" data-id="' +
-                                    item.id + '" data-nama_kategori="' + item.nama_kategori +
-                                    '">Edit</a><span class="mx-2"></span>' +
-                                    '<a href="javascript:;" class="text-danger font-weight-bold text-xs btn-delete" ' +
-                                    'data-toggle="tooltip" data-original-title="Hapus kategori" ' +
-                                    'data-id="' + item.id + '" data-nama_kategori="' + item
-                                    .nama_kategori +
-                                    '" onclick="confirmDelete(' + item.id + ', \'' + item
-                                    .nama_kategori + '\')">Hapus</a>' +
-                                    '</div></td></tr>';
-                                $("#katgoriTableBody").append(row);
-                            });
-                        } else {
-                            $("#katgoriTableBody").append(
-                                '<tr id="emptyRow"><td class="text-center" colspan="3">Belum ada data kategori <br>(〃￣︶￣)人(￣︶￣〃)</td></tr>'
-                            );
-                        }
-                    },
-                    error: function(error) {
-                        console.log("Error fetching data:", error);
-                    }
-                });
-            }
-
-            window.confirmDelete = function(categoryId, categoryName) {
-                var confirmDelete = confirm('Apakah Anda yakin ingin menghapus Kategori "' + categoryName +
-                    '"?');
-
-                if (confirmDelete) {
-                    deleteCategory(categoryId);
-                }
-            };
-
-            function deleteCategory(categoryId) {
-                $.ajax({
-                    url: '/api/delete-kategori/' + categoryId,
-                    type: 'delete',
-                    dataType: 'json',
-                    success: function(response) {
-                        loadDataKategori();
-                    },
-                    error: function(error) {
-                        console.log('Error deleting category:', error);
-                    }
-                });
-            }
-            $('#katgoriTableBody').on('click', '.btn-edit', function() {
-                var categoryId = $(this).data('id');
-                var categoryNama = $(this).data('nama_kategori');
-
-                $('#editCategoryId').val(categoryId);
-                $('#editCategory').val(categoryNama);
-
-                $('#editDataKategori').modal('show');
-            });
-
-            $('#btnSaveChanges').on('click', function() {
-                var categoryId = $('#editCategoryId').val();
-                var editedCategoryNama = $('#editCategory').val();
-
-                $.ajax({
-                    url: '/api/edit-kategori/' + categoryId,
-                    type: 'put',
-                    dataType: 'json',
-                    data: {
-                        nama_kategori: editedCategoryNama
-                    },
-                    success: function(response) {
+        $.ajax({
+            url: '/api/create-kategori',
+            type: 'post',
+            dataType: 'json',
+            data: {
+                nama_kategori: newCategory
+            },
+            success: function(response) {
+                Swal.fire({
+                    title: 'Success!',
+                    text: 'Kategori berhasil ditambahkan.',
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                }).then((result) => {
+                    if (result.isConfirmed) {
                         location.reload();
-
-                        $('#editDataKategori').modal('hide');
-                    },
-                    error: function(error) {
-                        console.log('Error updating category:', error);
                     }
                 });
-            });
+            },
+            error: function(error) {
+                console.log('Error adding category:', error);
+            }
         });
+    });
+
+    function loadDataKategori() {
+        $.ajax({
+            url: "/api/show-data-kategori",
+            type: "GET",
+            dataType: "json",
+            success: function(data) {
+                $("#katgoriTableBody").empty();
+                if (data.length > 0) {
+                    $.each(data, function(index, item) {
+                        var row = '<tr>' +
+                            '<td class="align-middle">' +
+                            '<div class="d-flex px-2 py-1">' +
+                            '<h6 class="mt-2 ml-4 text-sm">' + item.nama_kategori +
+                            '</h6>' +
+                            '</div></td>' +
+                            '<td class="align-middle"><div class="d-flex px-2 py-1">' +
+                            '<a class="text-success font-weight-bold text-xs btn-edit" data-bs-toggle="modal" data-bs-target="#editDataKategori" data-id="' +
+                            item.id + '" data-nama_kategori="' + item.nama_kategori +
+                            '">Edit</a><span class="mx-2"></span>' +
+                            '<a href="javascript:;" class="text-danger font-weight-bold text-xs btn-delete" ' +
+                            'data-toggle="tooltip" data-original-title="Hapus kategori" ' +
+                            'data-id="' + item.id + '" data-nama_kategori="' + item.nama_kategori +
+                            '" onclick="deleteCategoryConfirm(' + item.id + ', \'' + item.nama_kategori + '\')">Hapus</a>' +
+                            '</div></td></tr>';
+                        $("#katgoriTableBody").append(row);
+                    });
+                } else {
+                    $("#katgoriTableBody").append(
+                        '<tr id="emptyRow"><td class="text-center" colspan="3">Belum ada data kategori <br>(〃￣︶￣)人(￣︶￣〃)</td></tr>'
+                    );
+                }
+            },
+            error: function(error) {
+                console.log("Error fetching data:", error);
+            }
+        });
+    }
+
+    window.deleteCategoryConfirm = function(categoryId, categoryName) {
+        Swal.fire({
+            title: 'Apakah Anda yakin?',
+            text: 'Kategori "' + categoryName + '" akan dihapus.',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Ya, hapus!',
+            cancelButtonText: 'Batal'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                deleteCategory(categoryId);
+            }
+        });
+    };
+
+    function deleteCategory(categoryId) {
+        $.ajax({
+            url: '/api/delete-kategori/' + categoryId,
+            type: 'delete',
+            dataType: 'json',
+            success: function(response) {
+                Swal.fire({
+                    title: 'Sukses!',
+                    text: 'Kategori berhasil dihapus.',
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                }).then(() => {
+                    loadDataKategori();
+                });
+            },
+            error: function(error) {
+                console.log('Error deleting category:', error);
+            }
+        });
+    }
+
+    $('#katgoriTableBody').on('click', '.btn-edit', function() {
+        var categoryId = $(this).data('id');
+        var categoryNama = $(this).data('nama_kategori');
+
+        $('#editCategoryId').val(categoryId);
+        $('#editCategory').val(categoryNama);
+
+        $('#editDataKategori').modal('show');
+    });
+
+    $('#btnSaveChanges').on('click', function() {
+        var categoryId = $('#editCategoryId').val();
+        var editedCategoryNama = $('#editCategory').val();
+
+        $.ajax({
+            url: '/api/edit-kategori/' + categoryId,
+            type: 'put',
+            dataType: 'json',
+            data: {
+                nama_kategori: editedCategoryNama
+            },
+            success: function(response) {
+                location.reload();
+                $('#editDataKategori').modal('hide');
+            },
+            error: function(error) {
+                console.log('Error updating category:', error);
+            }
+        });
+    });
+});
+
     </script>
 
 

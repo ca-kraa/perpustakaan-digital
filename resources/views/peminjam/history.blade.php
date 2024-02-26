@@ -40,6 +40,40 @@
         </div>
     </div>
 
+<!-- Modal -->
+<div class="modal fade" id="modalBeriPenilaian" tabindex="-1" aria-labelledby="modalBeriPenilaianLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalBeriPenilaianLabel">Beri Penilaian</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="id_buku">
+                <div class="mb-3">
+                    <label for="ulasan" class="form-label">Ulasan</label>
+                    <textarea class="form-control" id="ulasan" rows="3"></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="rating" class="form-label">Rating</label>
+                    <select class="form-control" id="rating">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="submitReview">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+    
+
     <script src="{{ asset('assets/cdn') }}/jquery.js"></script>
     <script src="{{ asset('assets/cdn') }}/bootstrap.bundle.min.js"></script>
 
@@ -54,6 +88,8 @@
                         buttonColor = 'btn-success';
                     } else if (item.status_peminjam === 'Belum Di Kembalikan') {
                         buttonColor = 'btn-danger';
+                    } else if (item.status_peminjam === 'Sedang Di Pinjam') {
+                        buttonColor = 'btn-warning'
                     }
 
                     $('#bukuTableBody').append(`
@@ -83,6 +119,38 @@
                 });
             });
         });
+
+        $(document).ready(function() {
+    $(document).on('click', '.btn-success', function() {
+        var id_buku = $(this).closest('tr').find('.id_buku').text();
+        $('#id_buku').val(id_buku);
+        $('#modalBeriPenilaian').modal('show');
+    });
+
+    $('#submitReview').click(function() {
+        var id_buku = $('#id_buku').val();
+        var ulasan = $('#ulasan').val();
+        var rating = $('#rating').val();
+
+        $.ajax({
+            url: '/api/create-review',
+            type: 'POST',
+            data: {
+                id_buku: id_buku,
+                ulasan: ulasan,
+                rating: rating
+            },
+            success: function(response) {
+                alert(response.message);
+                $('#modalBeriPenilaian').modal('hide');
+            },
+            error: function(xhr, status, error) {
+                alert(xhr.responseText);
+            }
+        });
+    });
+});
+
     </script>
 
 
