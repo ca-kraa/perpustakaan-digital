@@ -62,6 +62,35 @@ th, td {
     border: 1px solid black;
     padding: 5px;
 }	
+
+.text-right {
+    text-align: right !important;
+}
+
+.img-ttd {
+    width: 100px;
+    height: 50px;
+    margin-top: 50%; 
+    margin-bottom: 20ch;
+    float: none;
+    display: block;
+    margin: 0 auto;
+    position: absolute;
+    top: 50%;
+    left: 90%;
+    transform: translate(-50%, -50%);
+    font-size: 18px;
+}
+
+
+
+.nip {
+  margin-bottom: 0;
+  text-align: right;
+  margin-top: -10px;
+}   
+
+
         </style>
     </head>
     <body>
@@ -77,8 +106,8 @@ th, td {
             </div>
         </div>
         <h2 style="text-align: center">Data Buku</h2>
-        <p>Di Cetak Oleh: {{ Auth::user()->namaLengkap }}</p>
-        <p>Tanggal Cetak : {{ date("d/m/Y | H:i:s") }}</p>
+        {{-- <p>Di Cetak Oleh: {{ Auth::user()->namaLengkap }}</p>
+        <p>Tanggal Cetak : {{ date("d/m/Y | H:i:s") }}</p> --}}
         <table>
             <thead>
                 <tr>
@@ -105,5 +134,26 @@ th, td {
                 @endforeach
             </tbody>
         </table>
+        <br>
+        <br>
+        <br>
+        <br>
+        <?php
+use Carbon\Carbon;
+
+Carbon::setLocale('id');
+
+
+$tanggal = Carbon::now()->format('d F Y');  
+?>
+        <p class="text-right">Payakumbuh,{{ $tanggal }}</p>
+  <p class="text-right" style="text-transform: capitalize;">{{ Auth::user()->level }},</p>
+  {{-- <img class="img-ttd" src="{{ public_path('assets/gambar/tanda-tangan.png') }}" alt="Tanda Tangan"> --}}
+  <br>
+  <br>
+  <br>
+  <br>
+  <p class="text-right" style="text-transform: uppercase; text-decoration: underline; font-weight: bold;">{{ Auth::user()->namaLengkap }}</p>
+  {{-- <p class="nip">NIP. 19781016 200604 1 004</p> --}}
     </body>
 </html>
